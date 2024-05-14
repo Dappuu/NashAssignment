@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "BackEndApi\Api.csproj", "{392CA245-8D99-4875-93D9-5CBFE6EDA7D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEndApi", "BackEndApi\BackEndApi.csproj", "{392CA245-8D99-4875-93D9-5CBFE6EDA7D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{D573A29F-1EBC-4702-985C-10AE6A6FBDF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerFE", "CustomerBackEnd\CustomerFE.csproj", "{0560878C-06D4-414D-888F-164901BB17DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerBackEnd", "CustomerBackEnd\CustomerBackEnd.csproj", "{0560878C-06D4-414D-888F-164901BB17DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminFE", "AdminFE", "{577DEDF2-C490-4A80-A423-36AEB812BB73}"
 EndProject
