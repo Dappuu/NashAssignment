@@ -10,7 +10,7 @@ namespace BackEndApi.Models
         public int? ParentId { get; set; }
         [NotMapped]
         public Category? Parent { get; set; }
-        public List<Category>? SubCategories { get; set; } 
-        public List<Product>? Products { get; set; }
+        public List<Category> SubCategories { get; set; } = new();
+        public List<Product> Products { get; set; } = new();
     }
 }

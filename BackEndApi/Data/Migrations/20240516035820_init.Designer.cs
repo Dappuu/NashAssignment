@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240515040742_init")]
+    [Migration("20240516035820_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -244,6 +244,9 @@ namespace BackEndApi.Data.Migrations
                     b.Property<int>("UnitsInStock")
                         .HasColumnType("int");
 
+                    b.Property<int>("UnitsSold")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -366,13 +369,13 @@ namespace BackEndApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6a137b96-fab3-4a9f-b065-32f58ba7e850",
+                            Id = "cb49008a-e3c8-4f10-85c3-4cbafb10d778",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "01aaba09-8d7f-4192-a02c-3b2dc59a3bc5",
+                            Id = "080fdc00-b047-4870-84ab-d1a6b5fe703a",
                             Name = "user",
                             NormalizedName = "USER"
                         });

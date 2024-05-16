@@ -11,7 +11,7 @@ namespace BackEndApi.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-        protected ApplicationDbContext() { }
+        public ApplicationDbContext() { }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }

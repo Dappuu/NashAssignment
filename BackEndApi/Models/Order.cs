@@ -10,9 +10,9 @@ namespace BackEndApi.Models
         public decimal OrderTotal { get; set; }
         public int Quantity { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
-        public string? StreetAddress { get; set; }
+        public string StreetAddress { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public User AppUser { get; set; } = new User();
-        public List<OrderDetail>? OrderDetails { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; } = new();
     }
 }

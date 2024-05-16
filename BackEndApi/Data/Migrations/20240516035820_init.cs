@@ -218,6 +218,7 @@ namespace BackEndApi.Data.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UnitsInStock = table.Column<int>(type: "int", nullable: false),
+                    UnitsSold = table.Column<int>(type: "int", nullable: false),
                     Discontinued = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -297,8 +298,8 @@ namespace BackEndApi.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "01aaba09-8d7f-4192-a02c-3b2dc59a3bc5", null, "user", "USER" },
-                    { "6a137b96-fab3-4a9f-b065-32f58ba7e850", null, "Admin", "ADMIN" }
+                    { "080fdc00-b047-4870-84ab-d1a6b5fe703a", null, "user", "USER" },
+                    { "cb49008a-e3c8-4f10-85c3-4cbafb10d778", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
