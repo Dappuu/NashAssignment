@@ -17,7 +17,7 @@ namespace BackEndApi.Controllers
         }
         // GET: api/subcategory
         [HttpGet]
-        public async Task<IActionResult> GetAllSubCategory()
+        public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
             {
@@ -29,7 +29,7 @@ namespace BackEndApi.Controllers
         }
         // GET api/subcategory/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdSub([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
@@ -53,8 +53,9 @@ namespace BackEndApi.Controllers
             var categoryModel = categoryDto.ToSubCategoryFromCreateDto();
             await _unitOfWork.CategoryRepository.Insert(categoryModel);
             await _unitOfWork.Save();
-            return CreatedAtAction(nameof(GetByIdSub), new { id = categoryModel.Id }, categoryModel.ToSubCategoryDto());
+            return CreatedAtAction(nameof(GetById), new { id = categoryModel.Id }, categoryModel.ToSubCategoryDto());
         }
+        // PUT api/subcategory/5
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateRequestSubCategoryDto updatedDto)

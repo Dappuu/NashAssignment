@@ -21,14 +21,14 @@ namespace BackEndApi.Controllers
         }
         // GET: api/category
         [HttpGet]
-        public async Task<IActionResult> GetAllCategory()
+        public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             var categories = await _unitOfWork.CategoryRepository.GetAll(includeProperties: "Products");
-            var categoriesProductDto = categories.Where(c => !c.SubCategories.Any()).Select(c => c.ToCategoryDto());
+            var categoriesProductDto = categories.Select(c => c.ToCategoryDto()); //.Where(c => !c.SubCategories.Any())
             return Ok(categoriesProductDto);
         }
         // GET api/category/5
@@ -47,7 +47,7 @@ namespace BackEndApi.Controllers
             return Ok(category.ToCategoryDto());
         }
 
-        // POST api/<Category>
+        // POST api/category
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateRequestCategoryDto categoryDto)
         {
@@ -61,7 +61,7 @@ namespace BackEndApi.Controllers
             return CreatedAtAction(nameof(GetById), new {id = categoryModel.Id}, categoryModel.ToCategoryDto());
         }
 
-        // PUT api/<Category>/5
+        // PUT api/category/5
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> Put([FromRoute]int id, [FromBody] UpdateRequestCategoryDto updatedDto)
@@ -72,18 +72,18 @@ namespace BackEndApi.Controllers
             }
 
             var category = await _unitOfWork.CategoryRepository.GetByID(id);
-            category.Name = updatedDto.Name;
-
             if (category == null)
             {
                 return NotFound();
             }
+            category.Name = updatedDto.Name;
+
             _unitOfWork.CategoryRepository.Update(category);
             await _unitOfWork.Save();
             return Ok(category.ToCategoryDto());
         }
 
-        // DELETE api/<Category>/5
+        // DELETE api/category/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute]int id)
         {
@@ -104,7 +104,7 @@ namespace BackEndApi.Controllers
             }
             catch
             {
-                return BadRequest("Cannot delete the parent Category!");
+                return BadRequest("Cannot Category because it is linked to other tables!");
             }
             return NoContent();
         }

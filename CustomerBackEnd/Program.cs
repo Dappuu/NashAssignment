@@ -1,7 +1,19 @@
+using System.Net;
+using System.Net.Http.Headers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient(name: "BackEndApi",
+  configureClient: options =>
+  {
+      options.BaseAddress = new Uri("https://localhost:7089/");
+      options.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue(
+        mediaType: "application/json", quality: 1.0));
+  });
 
 var app = builder.Build();
 
