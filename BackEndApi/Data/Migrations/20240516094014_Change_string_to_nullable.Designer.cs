@@ -4,6 +4,7 @@ using BackEndApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240516094014_Change_string_to_nullable")]
+    partial class Change_string_to_nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,6 +233,7 @@ namespace BackEndApi.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -367,13 +371,13 @@ namespace BackEndApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "faeefc82-e0f3-48e7-a8c9-f68a527c264d",
+                            Id = "6c3db23f-9622-46ad-88b4-8d1a5b0a0325",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "391fffb9-54ba-4a15-9f3a-5d9ba095e798",
+                            Id = "5ce33aad-c2d8-497d-b3ae-10c46ac1c56d",
                             Name = "user",
                             NormalizedName = "USER"
                         });
