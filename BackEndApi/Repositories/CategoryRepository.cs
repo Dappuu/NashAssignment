@@ -3,6 +3,7 @@ using BackEndApi.Helpers;
 using BackEndApi.Interfaces;
 using BackEndApi.Models;
 using BackEndApi.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace BackEndApi.Repositories
@@ -20,7 +21,7 @@ namespace BackEndApi.Repositories
             Expression<Func<Category, bool>> filter = null;
             if (!string.IsNullOrWhiteSpace(query.Name))
             {
-                filter = c => c.Name == query.Name;
+                filter = c => c.Name.Contains(query.Name);
             }
             Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null;
             if (!string.IsNullOrWhiteSpace(query.SortBy))
@@ -33,6 +34,18 @@ namespace BackEndApi.Repositories
             var categories = await GetAll(filter: filter, orderBy: orderBy, includeProperties: "Products");
 
             return categories;
+        }
+
+        public async Task<Category?> GetByIdAsync(int id)
+        {
+            var category = await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            return category;
+        }
+
+        public async Task<Category?> GetByIdSubAsync(int id)
+        {
+            var category = await _context.Categories.Include(c => c.SubCategories).FirstOrDefaultAsync(c => c.Id == id);
+            return category;
         }
     }
 }
