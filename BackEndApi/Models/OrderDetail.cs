@@ -9,7 +9,7 @@ namespace BackEndApi.Models
         [Column(TypeName = ("Decimal(12, 2)"))]
         public decimal Price { get; set; }
         public int Discount { get; set; }
-        public Product Product { get; set; } = new();
+        public ProductSku ProductSku { get; set; } = new();
         public int OrderId { get; set; }
         public Order Order { get; set; } = new Order();
     }

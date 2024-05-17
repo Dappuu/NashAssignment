@@ -10,8 +10,8 @@ namespace BackEndApi.Models
         [Column(TypeName = ("Decimal(1, 1)"))]
         public decimal Rating { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; } = new User();
+        public User User { get; set; } = new();
         public int ProductId { get; set; }
-        public required Product Product { get; set; }
+        public Product Product { get; set; } = new();
     }
 }

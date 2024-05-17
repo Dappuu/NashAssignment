@@ -77,6 +77,19 @@ namespace BackEndApi.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sizes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sizes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -192,7 +205,7 @@ namespace BackEndApi.Data.Migrations
                     OrderTotal = table.Column<decimal>(type: "Decimal(12,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -213,15 +226,6 @@ namespace BackEndApi.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "Decimal(12,2)", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnitsInStock = table.Column<int>(type: "int", nullable: false),
-                    UnitsSold = table.Column<int>(type: "int", nullable: false),
-                    Discontinued = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -265,6 +269,58 @@ namespace BackEndApi.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductSkus",
+                columns: table => new
+                {
+                    ProductSkuId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Price = table.Column<decimal>(type: "Decimal(12,2)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
+                    UnitsInStock = table.Column<int>(type: "int", nullable: false),
+                    UnitsSold = table.Column<int>(type: "int", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductSkus", x => x.ProductSkuId);
+                    table.ForeignKey(
+                        name: "FK_ProductSkus_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductSkus_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductSkuId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_ProductSkus_ProductSkuId",
+                        column: x => x.ProductSkuId,
+                        principalTable: "ProductSkus",
+                        principalColumn: "ProductSkuId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderDetails",
                 columns: table => new
                 {
@@ -273,7 +329,7 @@ namespace BackEndApi.Data.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "Decimal(12,2)", nullable: false),
                     Discount = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductSkuId = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -286,10 +342,10 @@ namespace BackEndApi.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
+                        name: "FK_OrderDetails_ProductSkus_ProductSkuId",
+                        column: x => x.ProductSkuId,
+                        principalTable: "ProductSkus",
+                        principalColumn: "ProductSkuId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -298,8 +354,8 @@ namespace BackEndApi.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "080fdc00-b047-4870-84ab-d1a6b5fe703a", null, "user", "USER" },
-                    { "cb49008a-e3c8-4f10-85c3-4cbafb10d778", null, "Admin", "ADMIN" }
+                    { "b546de69-8127-41a3-93f5-2d29b0a6cbef", null, "user", "USER" },
+                    { "bf46b589-a4e4-44f9-93d4-dba2708ad5c2", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -307,15 +363,17 @@ namespace BackEndApi.Data.Migrations
                 columns: new[] { "Id", "Name", "ParentId" },
                 values: new object[,]
                 {
-                    { 1, "Ao", null },
-                    { 2, "Quan", null },
-                    { 3, "Phu Kien", null },
-                    { 4, "Ao Thun", 1 },
-                    { 5, "Ao So Mi", 1 },
-                    { 6, "Quan Shorts", 2 },
-                    { 7, "Quan Jeans", 2 },
-                    { 8, "Tat/Vo", 3 },
-                    { 9, "Mu/Non", 3 }
+                    { 1, "Vòng", null },
+                    { 2, "Dây Chuyền", null },
+                    { 4, "Hoa Tai", null },
+                    { 5, "Nhẫn", null },
+                    { 6, "Vòng Đeo Charm", 1 },
+                    { 7, "Vòng Dây Da", 1 },
+                    { 8, "Vòng Dây Rút", 1 },
+                    { 9, "Dây Chuyền", 2 },
+                    { 10, "Mặt Dây Chuyền", 2 },
+                    { 11, "Kiểu Tròn", 4 },
+                    { 12, "Kiểu Rơi", 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -373,14 +431,19 @@ namespace BackEndApi.Data.Migrations
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Images_ProductSkuId",
+                table: "Images",
+                column: "ProductSkuId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ProductId",
+                name: "IX_OrderDetails_ProductSkuId",
                 table: "OrderDetails",
-                column: "ProductId");
+                column: "ProductSkuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_AppUserId",
@@ -391,6 +454,16 @@ namespace BackEndApi.Data.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSkus_ProductId",
+                table: "ProductSkus",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSkus_SizeId",
+                table: "ProductSkus",
+                column: "SizeId");
         }
 
         /// <inheritdoc />
@@ -415,6 +488,9 @@ namespace BackEndApi.Data.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
@@ -424,10 +500,16 @@ namespace BackEndApi.Data.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductSkus");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Categories");

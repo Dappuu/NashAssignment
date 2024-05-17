@@ -10,7 +10,7 @@ namespace BackEndApi.Models
         public string City { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = new DateTime();
         public List<Order>? Orders { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }

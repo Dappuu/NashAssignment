@@ -1,23 +1,27 @@
 ﻿using BackEndApi.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEndApi.Data.SeedData
 {
     public static class CategorySeed
     {
-        public static void SeedCategory(this ModelBuilder builder)
+		public static void SeedCategory(this ModelBuilder builder)
         {
-            var ao = new Category { Id = 1, Name = "Ao" };
-            var quan = new Category { Id = 2, Name = "Quan" };
-            var phuKien = new Category { Id = 3, Name = "Phu Kien" };
-            var aoThun = new Category { Id = 4, Name = "Ao Thun", ParentId = ao.Id };
-            var aoSoMi = new Category { Id = 5, Name = "Ao So Mi", ParentId = ao.Id };
-            var quanShorts = new Category { Id = 6, Name = "Quan Shorts", ParentId = quan.Id };
-            var quanJeans = new Category { Id = 7, Name = "Quan Jeans", ParentId = quan.Id };
-            var tatVo = new Category { Id = 8, Name = "Tat/Vo", ParentId = phuKien.Id };
-            var muNon = new Category { Id = 9, Name = "Mu/Non", ParentId = phuKien.Id };
+            var vong = new Category { Id = 1, Name = "Vòng" };
+            var dayChuyen = new Category { Id = 2, Name = "Dây Chuyền" };
+			var hoaTai = new Category { Id = 4, Name = "Hoa Tai" };
+			var nhan = new Category { Id = 5, Name = "Nhẫn" };
+			var vongDeoCharm = new Category { Id = 6, Name = "Vòng Đeo Charm", ParentId = vong.Id };
+			var vongDayDa = new Category { Id = 7, Name = "Vòng Dây Da", ParentId = vong.Id };
+			var vongDayRut = new Category { Id = 8, Name = "Vòng Dây Rút", ParentId = vong.Id };
+			var dayChuyenCon = new Category { Id = 9, Name = "Dây Chuyền", ParentId = dayChuyen.Id };
+			var matDayChuyen = new Category { Id = 10, Name = "Mặt Dây Chuyền", ParentId = dayChuyen.Id };
+			var kieuTron = new Category { Id = 11, Name = "Kiểu Tròn", ParentId = hoaTai.Id };
+			var kieuRoi = new Category { Id = 12, Name = "Kiểu Rơi", ParentId = hoaTai.Id };
 
-            builder.Entity<Category>().HasData(ao, quan, phuKien, aoThun, aoSoMi, quanShorts, quanJeans, tatVo, muNon);
+
+			builder.Entity<Category>().HasData(vong, dayChuyen, hoaTai, nhan, vongDeoCharm, vongDayDa, vongDayRut, kieuTron, kieuRoi, dayChuyenCon, matDayChuyen);
         }
     }
 }

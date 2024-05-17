@@ -47,53 +47,64 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Ao"
+                            Name = "Vòng"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Quan"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Phu Kien"
+                            Name = "Dây Chuyền"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Ao Thun",
-                            ParentId = 1
+                            Name = "Hoa Tai"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Ao So Mi",
-                            ParentId = 1
+                            Name = "Nhẫn"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Quan Shorts",
-                            ParentId = 2
+                            Name = "Vòng Đeo Charm",
+                            ParentId = 1
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Quan Jeans",
-                            ParentId = 2
+                            Name = "Vòng Dây Da",
+                            ParentId = 1
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Tat/Vo",
-                            ParentId = 3
+                            Name = "Vòng Dây Rút",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Kiểu Tròn",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Kiểu Rơi",
+                            ParentId = 4
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Mu/Non",
-                            ParentId = 3
+                            Name = "Dây Chuyền",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Mặt Dây Chuyền",
+                            ParentId = 2
                         });
                 });
 
@@ -132,6 +143,28 @@ namespace BackEndApi.Data.Migrations
                     b.HasIndex("UserId1");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductSkuId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductSkuId");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.Order", b =>
@@ -190,7 +223,7 @@ namespace BackEndApi.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("Decimal(12, 2)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductSkuId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -200,7 +233,7 @@ namespace BackEndApi.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductSkuId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -216,28 +249,39 @@ namespace BackEndApi.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Discontinued")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.ProductSku", b =>
+                {
+                    b.Property<int>("ProductSkuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductSkuId"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("Decimal(12, 2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("UnitsInStock")
                         .HasColumnType("int");
@@ -248,11 +292,29 @@ namespace BackEndApi.Data.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.HasKey("ProductSkuId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductSkus");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Products");
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.User", b =>
@@ -367,13 +429,13 @@ namespace BackEndApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "faeefc82-e0f3-48e7-a8c9-f68a527c264d",
+                            Id = "bf46b589-a4e4-44f9-93d4-dba2708ad5c2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "391fffb9-54ba-4a15-9f3a-5d9ba095e798",
+                            Id = "b546de69-8127-41a3-93f5-2d29b0a6cbef",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -512,6 +574,17 @@ namespace BackEndApi.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BackEndApi.Models.Image", b =>
+                {
+                    b.HasOne("BackEndApi.Models.ProductSku", "ProductSku")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductSkuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductSku");
+                });
+
             modelBuilder.Entity("BackEndApi.Models.Order", b =>
                 {
                     b.HasOne("BackEndApi.Models.User", "AppUser")
@@ -529,15 +602,15 @@ namespace BackEndApi.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BackEndApi.Models.Product", "Product")
+                    b.HasOne("BackEndApi.Models.ProductSku", "ProductSku")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductSkuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductSku");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.Product", b =>
@@ -549,6 +622,25 @@ namespace BackEndApi.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.ProductSku", b =>
+                {
+                    b.HasOne("BackEndApi.Models.Product", "Product")
+                        .WithMany("productSkus")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackEndApi.Models.Size", "Size")
+                        .WithMany("ProductSkus")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -618,7 +710,19 @@ namespace BackEndApi.Data.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("productSkus");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.ProductSku", b =>
+                {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("BackEndApi.Models.Size", b =>
+                {
+                    b.Navigation("ProductSkus");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.User", b =>
