@@ -4,20 +4,17 @@ namespace BackEndApi.Models
 {
 	public class ProductSku
 	{
-		public int ProductSkuId { get; set; }
-		[Column(TypeName = ("Decimal(12, 2)"))]
-		public decimal Price { get; set; }
+		public int Id { get; set; }
 		public int ProductId { get; set; }
-		public Product Product { get; set; } = new();
+		public Product Product { get; set; } 
 		public int SizeId { get; set; }
-		public Size Size { get; set; } = new();
+		public Size Size { get; set; } 
 		public int UnitsInStock { get; set; }
-		public int UnitsSold { get; set; }
-		public bool Active { get; set; } = true;
-		public DateTime CreatedDate { get; set; } = new DateTime();
-		public DateTime UpdatedDate { get; set; } = new DateTime();
-		public virtual List<OrderDetail> OrderDetails { get; set; } = new();
-		public List<Image> Images { get; set; } = new();
+		public int UnitsSold { get; set; } = 0;
+		public DateTime CreatedDate { get; set; } = DateTime.Now;
+		public DateTime UpdatedDate { get; set; } = DateTime.Now;
+		public List<OrderDetail>? OrderDetails { get; set; }
+		public List<Image>? Images { get; set; } 
 
 	}
 }

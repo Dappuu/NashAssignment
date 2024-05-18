@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
 
 namespace BackEndApi.Models
 {
-    public class User : IdentityUser
-    {
+	public class User : IdentityUser
+	{
 
-        public string? StreetAddress { get; set; }
-        public string City { get; set; } = string.Empty;
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public DateTime DateOfBirth { get; set; } = new DateTime();
-        public List<Order>? Orders { get; set; }
-        public List<Comment> Comments { get; set; } = new List<Comment>();
-    }
+		public string? StreetAddress { get; set; }
+		public string? City { get; set; } 
+		public string? FirstName { get; set; } 
+		public string? LastName { get; set; } 
+		public DateTime DateOfBirth { get; set; } = DateTime.Now;
+		public List<Order>? Orders { get; set; }
+		public List<Comment>? Comments { get; set; } 
+	}
 }
