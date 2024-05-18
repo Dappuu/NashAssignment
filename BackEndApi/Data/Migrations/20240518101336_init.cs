@@ -234,6 +234,7 @@ namespace BackEndApi.Data.Migrations
                     UnitsInStock = table.Column<int>(type: "int", nullable: false),
                     UnitsSold = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -286,8 +287,7 @@ namespace BackEndApi.Data.Migrations
                     SizeId = table.Column<int>(type: "int", nullable: false),
                     UnitsInStock = table.Column<int>(type: "int", nullable: false),
                     UnitsSold = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -359,8 +359,8 @@ namespace BackEndApi.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "91c50c0a-c835-4a7b-8da1-52bf4d9c65ab", null, "Admin", "ADMIN" },
-                    { "fdbb6b33-e0d7-4a88-9846-319fcbd0236f", null, "user", "USER" }
+                    { "54d77f41-320b-4818-bb72-e39196613c16", null, "user", "USER" },
+                    { "67f25b73-7175-40ca-abd7-94df821627bf", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,30 +407,30 @@ namespace BackEndApi.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Active", "CategoryId", "CreatedDate", "Description", "Discount", "Material", "Name", "Price", "ProductSkuName", "UnitsInStock", "UnitsSold" },
+                columns: new[] { "Id", "Active", "CategoryId", "CreatedDate", "Description", "Discount", "Material", "Name", "Price", "ProductSkuName", "UnitsInStock", "UnitsSold", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, true, 5, new DateTime(2024, 5, 18, 15, 8, 55, 477, DateTimeKind.Local).AddTicks(9988), "Chinh phục cảm giác lãng mạn với chiếc vòng đeo tay dạng Snake Chain Pandora Moments Rose in Bloom của chúng tôi. Được chế tác từ bạc sterling, chiếc vòng tay này không chỉ là một phong cách trang sức mà còn là biểu hiện của tình yêu. Mẫu khóa hình hoa hồng được thiết kế tinh tế với những cánh hoa lớp lớp mang đến một chút dáng vẻ thanh lịch và ý nghĩa của hoa. Linh hoạt và phong cách, nó có thể chứa 16-18 món trang sức, được chia thành các threaders chức năng giúp bạn phân bố một cách hợp lý bộ sưu tập của mình. Hãy đeo nó như một lời nhắc nhở về tình yêu bạn có trong cuộc sống hoặc tặng nó cho người bạn quan tâm.", 0, "Bạc", "Vòng Bạc Pandora Moments Khóa Hoa Hồng", 2990000m, "593211C00", 0, 0 },
-                    { 2, true, 5, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(9), "Mang lại vẻ đẹp lấp lánh tự nhiên cho vẻ ngoài của bạn với Vòng đeo tay chuỗi rắn Pandora Moments Asymmetric Star Clasp. Được hoàn thiện thủ công bằng bạc sterling, móc cài hình ngôi sao của vòng tay được bao phủ bởi các pavé zirconia hình khối rõ ràng lấp lánh ở cả hai mặt. Nó có thể được đeo với tối đa 16-18 charm và clips mong muốn. Đeo theo một kiểu riêng để có vẻ ngoài đơn giản, tinh tế hoặc xếp nó với các thiết kế lấy cảm hứng từ thiên thể khác để có một diện mạo khác với thế giới này.", 0, "Bạc", "Vòng Bạc Pandora Moments Khóa Ngôi Sao Đính Đá", 3590000m, "599639c01", 0, 0 },
-                    { 3, true, 6, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(12), "Như một cuộc phiêu lưu dưới đáy đại dương và như một chuyến đi dạo giữa bầu trời đêm thật yên bình. Vòng đeo tay da dệt xanh Pandora Moments Round Clasp Blue Braided được đan từ những sợi dây da xanh đậm tinh tế, được kết thúc bằng khóa bạc sterling tròn và đầu bằng bạc sterling tinh tế. Phối cùng tối đa 9 món trang sức hoặc dây treo, chiếc vòng đeo tay này sẽ tôn lên vẻ đẹp độc đáo của các món trang sức yêu thích của bạn. Hãy để nó trở thành một tác phẩm nghệ thuật bất hủ trên cổ tay của bạn.", 0, "Da", "Vòng Bạc Pandora Bọc Da Màu Xanh", 2090000m, "592790C01", 0, 0 },
-                    { 4, true, 6, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(13), "Thêm một chút sắc cạnh cho vẻ ngoài của bạn với chiếc vòng tay đan bằng chất liệu da sắc đỏ, kết hợp với phần nút gài mạ vàng 14K, một dòng kim loại hỗn hợp độc đáo được mạ vàng 14K. Hãy thử đeo những chiếc charm Pandora yêu thích của bạn theo một kiểu cách khác hơn cùng chiếc vòng da màu đỏ. Phong cách này hoàn toàn phù hợp với những bạn thích nổi bật giữa đám đông. Chiếc vòng tay đem đến cho bạn một vẻ ngoài đặc biệt và hiện đại, cho phép bạn thoải mái sáng tạo trong cách đeo. Bạn có thể kết hợp nó cùng với nhiều layer vòng tay và nhiều loại charm khác, cũng có thể đeo nó đơn lẻ như một tín vật bày tỏ.", 0, "Da", "Vòng Da Pandora Moments Mạ Vàng 14k Màu Đỏ", 2390000m, "568777C01", 0, 0 },
-                    { 5, true, 7, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(15), "Chọn lựa một phiên bản hiện đại của kiểu cổ điển với Vòng Sparkling Bars. Được thiết kế với các thanh hình hình lăng tròn có tám viên đá lấp lánh được đặt trong khung mở, vòng bạc sterling này cân bằng giữa các đường thẳng mượt mà với những đường cong tròn. Các thanh được kết nối thông minh bằng vòng nhả, cho phép tính linh hoạt và sự lấp lánh. Khóa có thể điều chỉnh được thiết kế với một dây treo có một viên đá lấp lánh ở đầu. Được thiết kế để có thể kết hợp sáng tạo với các mảng khác, vòng thanh lịch này có tiềm năng vô tận trong việc tạo kiểu.", 0, "Bạc", "Vòng Bạc Pandora Lấp Lánh Khóa Trượt", 4790000m, "593009C01", 0, 0 },
-                    { 6, true, 8, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(18), "Theo đuổi lời kêu gọi của chiếc bóng với Dây Chuyền Disney Cinderella's Carriage Collier từ bộ sưu tập Disney x Pandora. Chiếc dây chuyền bạc sterling này có một mặt nạ tinh tế được lấy cảm hứng từ chiếc xe bí ngô phù thủy của Cinderella, với một viên đá hình lá cẩm màu xanh được bao quanh bởi các chi tiết mở xoắn. Những viên đá cubic zirconia nhỏ lấp lánh trên bánh xe và thân bí ngô. Mặt nạ được cố định trên dây chuyền và có thể điều chỉnh được thành ba chiều dài. Kết hợp nó với đôi bông tai nút tương ứng để tạo nên một diện mạo cao cấp lấy cảm hứng từ Cinderella.", 0, "Bạc", "Dây Chuyền Bạc Disney x Pandora Mặt Dây Xe Bí Ngô", 4790000m, "393057C01", 0, 0 }
+                    { 1, true, 5, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8087), "Chinh phục cảm giác lãng mạn với chiếc vòng đeo tay dạng Snake Chain Pandora Moments Rose in Bloom của chúng tôi. Được chế tác từ bạc sterling, chiếc vòng tay này không chỉ là một phong cách trang sức mà còn là biểu hiện của tình yêu. Mẫu khóa hình hoa hồng được thiết kế tinh tế với những cánh hoa lớp lớp mang đến một chút dáng vẻ thanh lịch và ý nghĩa của hoa. Linh hoạt và phong cách, nó có thể chứa 16-18 món trang sức, được chia thành các threaders chức năng giúp bạn phân bố một cách hợp lý bộ sưu tập của mình. Hãy đeo nó như một lời nhắc nhở về tình yêu bạn có trong cuộc sống hoặc tặng nó cho người bạn quan tâm.", 0, "Bạc", "Vòng Bạc Pandora Moments Khóa Hoa Hồng", 2990000m, "593211C00", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8100) },
+                    { 2, true, 5, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8109), "Mang lại vẻ đẹp lấp lánh tự nhiên cho vẻ ngoài của bạn với Vòng đeo tay chuỗi rắn Pandora Moments Asymmetric Star Clasp. Được hoàn thiện thủ công bằng bạc sterling, móc cài hình ngôi sao của vòng tay được bao phủ bởi các pavé zirconia hình khối rõ ràng lấp lánh ở cả hai mặt. Nó có thể được đeo với tối đa 16-18 charm và clips mong muốn. Đeo theo một kiểu riêng để có vẻ ngoài đơn giản, tinh tế hoặc xếp nó với các thiết kế lấy cảm hứng từ thiên thể khác để có một diện mạo khác với thế giới này.", 0, "Bạc", "Vòng Bạc Pandora Moments Khóa Ngôi Sao Đính Đá", 3590000m, "599639c01", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8109) },
+                    { 3, true, 6, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8111), "Như một cuộc phiêu lưu dưới đáy đại dương và như một chuyến đi dạo giữa bầu trời đêm thật yên bình. Vòng đeo tay da dệt xanh Pandora Moments Round Clasp Blue Braided được đan từ những sợi dây da xanh đậm tinh tế, được kết thúc bằng khóa bạc sterling tròn và đầu bằng bạc sterling tinh tế. Phối cùng tối đa 9 món trang sức hoặc dây treo, chiếc vòng đeo tay này sẽ tôn lên vẻ đẹp độc đáo của các món trang sức yêu thích của bạn. Hãy để nó trở thành một tác phẩm nghệ thuật bất hủ trên cổ tay của bạn.", 0, "Da", "Vòng Bạc Pandora Bọc Da Màu Xanh", 2090000m, "592790C01", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8111) },
+                    { 4, true, 6, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8113), "Thêm một chút sắc cạnh cho vẻ ngoài của bạn với chiếc vòng tay đan bằng chất liệu da sắc đỏ, kết hợp với phần nút gài mạ vàng 14K, một dòng kim loại hỗn hợp độc đáo được mạ vàng 14K. Hãy thử đeo những chiếc charm Pandora yêu thích của bạn theo một kiểu cách khác hơn cùng chiếc vòng da màu đỏ. Phong cách này hoàn toàn phù hợp với những bạn thích nổi bật giữa đám đông. Chiếc vòng tay đem đến cho bạn một vẻ ngoài đặc biệt và hiện đại, cho phép bạn thoải mái sáng tạo trong cách đeo. Bạn có thể kết hợp nó cùng với nhiều layer vòng tay và nhiều loại charm khác, cũng có thể đeo nó đơn lẻ như một tín vật bày tỏ.", 0, "Da", "Vòng Da Pandora Moments Mạ Vàng 14k Màu Đỏ", 2390000m, "568777C01", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8113) },
+                    { 5, true, 7, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8115), "Chọn lựa một phiên bản hiện đại của kiểu cổ điển với Vòng Sparkling Bars. Được thiết kế với các thanh hình hình lăng tròn có tám viên đá lấp lánh được đặt trong khung mở, vòng bạc sterling này cân bằng giữa các đường thẳng mượt mà với những đường cong tròn. Các thanh được kết nối thông minh bằng vòng nhả, cho phép tính linh hoạt và sự lấp lánh. Khóa có thể điều chỉnh được thiết kế với một dây treo có một viên đá lấp lánh ở đầu. Được thiết kế để có thể kết hợp sáng tạo với các mảng khác, vòng thanh lịch này có tiềm năng vô tận trong việc tạo kiểu.", 0, "Bạc", "Vòng Bạc Pandora Lấp Lánh Khóa Trượt", 4790000m, "593009C01", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8115) },
+                    { 6, true, 8, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8118), "Theo đuổi lời kêu gọi của chiếc bóng với Dây Chuyền Disney Cinderella's Carriage Collier từ bộ sưu tập Disney x Pandora. Chiếc dây chuyền bạc sterling này có một mặt nạ tinh tế được lấy cảm hứng từ chiếc xe bí ngô phù thủy của Cinderella, với một viên đá hình lá cẩm màu xanh được bao quanh bởi các chi tiết mở xoắn. Những viên đá cubic zirconia nhỏ lấp lánh trên bánh xe và thân bí ngô. Mặt nạ được cố định trên dây chuyền và có thể điều chỉnh được thành ba chiều dài. Kết hợp nó với đôi bông tai nút tương ứng để tạo nên một diện mạo cao cấp lấy cảm hứng từ Cinderella.", 0, "Bạc", "Dây Chuyền Bạc Disney x Pandora Mặt Dây Xe Bí Ngô", 4790000m, "393057C01", 0, 0, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8118) }
                 });
 
             migrationBuilder.InsertData(
                 table: "ProductSkus",
-                columns: new[] { "Id", "CreatedDate", "ProductId", "SizeId", "UnitsInStock", "UnitsSold", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "ProductId", "SizeId", "UnitsInStock", "UnitsSold" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(50), 1, 1, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(51) },
-                    { 2, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(56), 1, 2, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(56) },
-                    { 3, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(57), 1, 3, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(58) },
-                    { 4, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(59), 2, 4, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(59) },
-                    { 5, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(60), 3, 10, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(61) },
-                    { 6, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(63), 3, 11, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(63) },
-                    { 7, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(66), 5, 1, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(66) },
-                    { 8, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(64), 4, 8, 100, 0, new DateTime(2024, 5, 18, 15, 8, 55, 478, DateTimeKind.Local).AddTicks(65) }
+                    { 1, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8151), 1, 1, 100, 0 },
+                    { 2, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8154), 1, 2, 100, 0 },
+                    { 3, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8155), 1, 3, 100, 0 },
+                    { 4, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8156), 2, 4, 100, 0 },
+                    { 5, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8157), 3, 10, 100, 0 },
+                    { 6, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8159), 3, 11, 100, 0 },
+                    { 7, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8161), 5, 1, 100, 0 },
+                    { 8, new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8160), 4, 8, 100, 0 }
                 });
 
             migrationBuilder.CreateIndex(

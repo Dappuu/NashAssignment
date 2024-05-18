@@ -12,7 +12,6 @@ namespace BackEndApi.Models
 		public int UnitsInStock { get; set; }
 		public int UnitsSold { get; set; } = 0;
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
-		public DateTime UpdatedDate { get; set; } = DateTime.Now;
 		public List<OrderDetail>? OrderDetails { get; set; }
 		public List<Image>? Images { get; set; } 
 

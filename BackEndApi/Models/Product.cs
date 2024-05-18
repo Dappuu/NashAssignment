@@ -15,8 +15,8 @@ namespace BackEndApi.Models
 		public int UnitsInStock { get; set; }
 		public int UnitsSold { get; set; } = 0;
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
+		public DateTime UpdatedDate { get; set; } = DateTime.Now;
 		public bool Active { get; set; } = true;
-		//[ForeignKey(nameof(Category))]
 		public int CategoryId { get; set; }
 		public Category Category { get; set; }
 		public List<ProductSku>? productSkus { get; set; }
