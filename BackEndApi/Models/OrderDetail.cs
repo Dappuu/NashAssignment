@@ -12,6 +12,6 @@ namespace BackEndApi.Models
 		public int? ProductSkuId { get; set; }
 		public ProductSku? ProductSku { get; set; } 
 		public int OrderId { get; set; }
-		public Order Order { get; set; }
+		public Order? Order { get; set; }
 	}
 }

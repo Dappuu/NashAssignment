@@ -30,6 +30,9 @@ namespace BackEndApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -143,7 +146,7 @@ namespace BackEndApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProductSkuId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -152,7 +155,7 @@ namespace BackEndApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductSkuId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Images");
                 });
@@ -288,7 +291,7 @@ namespace BackEndApi.Data.Migrations
                             Id = 1,
                             Active = true,
                             CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8087),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6679),
                             Description = "Chinh phục cảm giác lãng mạn với chiếc vòng đeo tay dạng Snake Chain Pandora Moments Rose in Bloom của chúng tôi. Được chế tác từ bạc sterling, chiếc vòng tay này không chỉ là một phong cách trang sức mà còn là biểu hiện của tình yêu. Mẫu khóa hình hoa hồng được thiết kế tinh tế với những cánh hoa lớp lớp mang đến một chút dáng vẻ thanh lịch và ý nghĩa của hoa. Linh hoạt và phong cách, nó có thể chứa 16-18 món trang sức, được chia thành các threaders chức năng giúp bạn phân bố một cách hợp lý bộ sưu tập của mình. Hãy đeo nó như một lời nhắc nhở về tình yêu bạn có trong cuộc sống hoặc tặng nó cho người bạn quan tâm.",
                             Discount = 0,
                             Material = "Bạc",
@@ -297,14 +300,14 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "593211C00",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8100)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6691)
                         },
                         new
                         {
                             Id = 2,
                             Active = true,
                             CategoryId = 5,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8109),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6699),
                             Description = "Mang lại vẻ đẹp lấp lánh tự nhiên cho vẻ ngoài của bạn với Vòng đeo tay chuỗi rắn Pandora Moments Asymmetric Star Clasp. Được hoàn thiện thủ công bằng bạc sterling, móc cài hình ngôi sao của vòng tay được bao phủ bởi các pavé zirconia hình khối rõ ràng lấp lánh ở cả hai mặt. Nó có thể được đeo với tối đa 16-18 charm và clips mong muốn. Đeo theo một kiểu riêng để có vẻ ngoài đơn giản, tinh tế hoặc xếp nó với các thiết kế lấy cảm hứng từ thiên thể khác để có một diện mạo khác với thế giới này.",
                             Discount = 0,
                             Material = "Bạc",
@@ -313,14 +316,14 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "599639c01",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8109)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6701)
                         },
                         new
                         {
                             Id = 3,
                             Active = true,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8111),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6706),
                             Description = "Như một cuộc phiêu lưu dưới đáy đại dương và như một chuyến đi dạo giữa bầu trời đêm thật yên bình. Vòng đeo tay da dệt xanh Pandora Moments Round Clasp Blue Braided được đan từ những sợi dây da xanh đậm tinh tế, được kết thúc bằng khóa bạc sterling tròn và đầu bằng bạc sterling tinh tế. Phối cùng tối đa 9 món trang sức hoặc dây treo, chiếc vòng đeo tay này sẽ tôn lên vẻ đẹp độc đáo của các món trang sức yêu thích của bạn. Hãy để nó trở thành một tác phẩm nghệ thuật bất hủ trên cổ tay của bạn.",
                             Discount = 0,
                             Material = "Da",
@@ -329,14 +332,14 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "592790C01",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8111)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6708)
                         },
                         new
                         {
                             Id = 4,
                             Active = true,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8113),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6712),
                             Description = "Thêm một chút sắc cạnh cho vẻ ngoài của bạn với chiếc vòng tay đan bằng chất liệu da sắc đỏ, kết hợp với phần nút gài mạ vàng 14K, một dòng kim loại hỗn hợp độc đáo được mạ vàng 14K. Hãy thử đeo những chiếc charm Pandora yêu thích của bạn theo một kiểu cách khác hơn cùng chiếc vòng da màu đỏ. Phong cách này hoàn toàn phù hợp với những bạn thích nổi bật giữa đám đông. Chiếc vòng tay đem đến cho bạn một vẻ ngoài đặc biệt và hiện đại, cho phép bạn thoải mái sáng tạo trong cách đeo. Bạn có thể kết hợp nó cùng với nhiều layer vòng tay và nhiều loại charm khác, cũng có thể đeo nó đơn lẻ như một tín vật bày tỏ.",
                             Discount = 0,
                             Material = "Da",
@@ -345,14 +348,14 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "568777C01",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8113)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6714)
                         },
                         new
                         {
                             Id = 5,
                             Active = true,
                             CategoryId = 7,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8115),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6717),
                             Description = "Chọn lựa một phiên bản hiện đại của kiểu cổ điển với Vòng Sparkling Bars. Được thiết kế với các thanh hình hình lăng tròn có tám viên đá lấp lánh được đặt trong khung mở, vòng bạc sterling này cân bằng giữa các đường thẳng mượt mà với những đường cong tròn. Các thanh được kết nối thông minh bằng vòng nhả, cho phép tính linh hoạt và sự lấp lánh. Khóa có thể điều chỉnh được thiết kế với một dây treo có một viên đá lấp lánh ở đầu. Được thiết kế để có thể kết hợp sáng tạo với các mảng khác, vòng thanh lịch này có tiềm năng vô tận trong việc tạo kiểu.",
                             Discount = 0,
                             Material = "Bạc",
@@ -361,14 +364,14 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "593009C01",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8115)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6719)
                         },
                         new
                         {
                             Id = 6,
                             Active = true,
                             CategoryId = 8,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8118),
+                            CreatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6725),
                             Description = "Theo đuổi lời kêu gọi của chiếc bóng với Dây Chuyền Disney Cinderella's Carriage Collier từ bộ sưu tập Disney x Pandora. Chiếc dây chuyền bạc sterling này có một mặt nạ tinh tế được lấy cảm hứng từ chiếc xe bí ngô phù thủy của Cinderella, với một viên đá hình lá cẩm màu xanh được bao quanh bởi các chi tiết mở xoắn. Những viên đá cubic zirconia nhỏ lấp lánh trên bánh xe và thân bí ngô. Mặt nạ được cố định trên dây chuyền và có thể điều chỉnh được thành ba chiều dài. Kết hợp nó với đôi bông tai nút tương ứng để tạo nên một diện mạo cao cấp lấy cảm hứng từ Cinderella.",
                             Discount = 0,
                             Material = "Bạc",
@@ -377,7 +380,7 @@ namespace BackEndApi.Data.Migrations
                             ProductSkuName = "393057C01",
                             UnitsInStock = 0,
                             UnitsSold = 0,
-                            UpdatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8118)
+                            UpdatedDate = new DateTime(2024, 5, 19, 12, 17, 21, 350, DateTimeKind.Local).AddTicks(6727)
                         });
                 });
 
@@ -388,9 +391,6 @@ namespace BackEndApi.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -416,7 +416,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8151),
                             ProductId = 1,
                             SizeId = 1,
                             UnitsInStock = 100,
@@ -425,7 +424,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8154),
                             ProductId = 1,
                             SizeId = 2,
                             UnitsInStock = 100,
@@ -434,7 +432,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8155),
                             ProductId = 1,
                             SizeId = 3,
                             UnitsInStock = 100,
@@ -443,7 +440,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8156),
                             ProductId = 2,
                             SizeId = 4,
                             UnitsInStock = 100,
@@ -452,7 +448,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8157),
                             ProductId = 3,
                             SizeId = 10,
                             UnitsInStock = 100,
@@ -461,7 +456,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8159),
                             ProductId = 3,
                             SizeId = 11,
                             UnitsInStock = 100,
@@ -470,7 +464,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8160),
                             ProductId = 4,
                             SizeId = 8,
                             UnitsInStock = 100,
@@ -479,7 +472,6 @@ namespace BackEndApi.Data.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 5, 18, 17, 13, 34, 743, DateTimeKind.Local).AddTicks(8161),
                             ProductId = 5,
                             SizeId = 1,
                             UnitsInStock = 100,
@@ -670,13 +662,13 @@ namespace BackEndApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "67f25b73-7175-40ca-abd7-94df821627bf",
+                            Id = "02337235-2628-4558-befb-1a3232ff6c19",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "54d77f41-320b-4818-bb72-e39196613c16",
+                            Id = "b9ca9a05-e432-40d3-b72b-4b1b05192275",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -817,13 +809,11 @@ namespace BackEndApi.Data.Migrations
 
             modelBuilder.Entity("BackEndApi.Models.Image", b =>
                 {
-                    b.HasOne("BackEndApi.Models.ProductSku", "ProductSku")
+                    b.HasOne("BackEndApi.Models.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ProductSkuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
-                    b.Navigation("ProductSku");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.Order", b =>
@@ -949,13 +939,13 @@ namespace BackEndApi.Data.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("Images");
+
                     b.Navigation("productSkus");
                 });
 
             modelBuilder.Entity("BackEndApi.Models.ProductSku", b =>
                 {
-                    b.Navigation("Images");
-
                     b.Navigation("OrderDetails");
                 });
 

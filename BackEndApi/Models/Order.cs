@@ -9,10 +9,10 @@ namespace BackEndApi.Models
 		[Column(TypeName = ("Decimal(12, 2)"))]
 		public decimal Total { get; set; }
 		public int Quantity { get; set; }
-		public string PhoneNumber { get; set; } 
-		public string City { get; set; } 
-		public string StreetAddress { get; set; }
-		public User AppUser { get; set; } 
+		public required string PhoneNumber { get; set; } 
+		public required string City { get; set; } 
+		public required string StreetAddress { get; set; }
+		public User? AppUser { get; set; } 
 		public List<OrderDetail>? OrderDetails { get; set; } 
 	}
 }
