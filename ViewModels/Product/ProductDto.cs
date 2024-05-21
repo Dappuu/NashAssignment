@@ -14,7 +14,8 @@ namespace ViewModels.Product
 		public required string ProductSkuName { get; set; }
 		public required string Description { get; set; }
 		public required string Material { get; set; }
-		public decimal Price { get; set; }
+        public decimal? Rating { get; set; }
+        public decimal Price { get; set; }
 		public int Discount { get; set; } 
 		public int UnitsInStock { get; set; }
 		public int UnitsSold { get; set; }
