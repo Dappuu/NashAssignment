@@ -8,8 +8,10 @@ namespace BackEndApi.Models
 		public required string Name { get; set; } 
 		public required string ProductSkuName { get; set; } 
 		public required string Description { get; set; } 
-		public required string Material { get; set; } 
-		[Column(TypeName = ("Decimal(12, 2)"))]
+		public required string Material { get; set; }
+        [Column(TypeName = ("Decimal(1, 1)"))]
+        public decimal? Rating { get; set; }
+        [Column(TypeName = ("Decimal(12, 2)"))]
 		public decimal Price { get; set; }
 		public int Discount { get; set; } = 0;
 		public int UnitsInStock { get; set; }
