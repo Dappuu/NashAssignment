@@ -30,7 +30,7 @@ namespace BackEndApi.Controllers
             }
             Expression<Func<Product, bool>> filter = null!;
             Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null!;
-            if (!(string.IsNullOrWhiteSpace(query.Name))) 
+            if (!(string.IsNullOrWhiteSpace(query.Name)))
             {
                 filter = c => c.Name.Contains(query.Name);
             }
@@ -44,10 +44,12 @@ namespace BackEndApi.Controllers
                         query.IsDescending ? c => c.OrderByDescending(c => c.Price) : c => c.OrderBy(c => c.Price),
                     var sort when sort.Equals("UnitsSold", StringComparison.OrdinalIgnoreCase) =>
                         query.IsDescending ? c => c.OrderByDescending(c => c.UnitsSold) : c => c.OrderBy(c => c.UnitsSold),
-                    _ => orderBy
+					var sort when sort.Equals("CreatedDate", StringComparison.OrdinalIgnoreCase) =>
+					    query.IsDescending ? c => c.OrderByDescending(c => c.CreatedDate) : c => c.OrderBy(c => c.CreatedDate),
+					_ => orderBy
                 };
             }
-            var products = await _unitOfWork.ProductRepository.GetAll(filter, orderBy);
+            var products = await _unitOfWork.ProductRepository.GetAll(filter, orderBy, includeProperties: "Images,Category");
             var productDto = products.Select(c => c.ToProductDto());
             return Ok(productDto);
         }
@@ -59,7 +61,7 @@ namespace BackEndApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var product = await _unitOfWork.ProductRepository.GetByID(id);
+            var product = await _unitOfWork.ProductRepository.GetInfoProduct(id);
             if (product is null)
             {
                 return NotFound();
@@ -67,92 +69,92 @@ namespace BackEndApi.Controllers
             return Ok(product.ToProductDto());
         }
 
-        // POST api/product
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateRequestProductDto productDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var productModel = productDto.ToProductFromCreateDto();
-            var category = await _unitOfWork.CategoryRepository.GetByIdSubAsync(productModel.CategoryId);
-            if (category is null)
-            {
-                return NotFound("Not Found The Category Of Product");
-            }
-            if (category.SubCategories.Any())
-            {
-                return BadRequest("Cannot Add Product To Parent Category");
-            }
-            await _unitOfWork.ProductRepository.Insert(productModel);
-            await _unitOfWork.Save();
-            return CreatedAtAction(nameof(GetById), new { id = productModel.Id }, productModel.ToProductDto());
-        }
+        ////POST api/product
+        //[HttpPost]
+        //public async Task<IActionResult> Post([FromBody] CreateRequestProductDto productDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var productModel = productDto.ToProductFromCreateDto();
+        //    var category = await _unitOfWork.CategoryRepository.GetByIdAsync(productModel.CategoryId);
+        //    if (category is null)
+        //    {
+        //        return NotFound("Not Found The Category Of Product");
+        //    }
+        //    if (category.SubCategories is not null && category.SubCategories.Any())
+        //    {
+        //        return BadRequest("Cannot Add Product To Parent Category");
+        //    }
+        //    await _unitOfWork.ProductRepository.Insert(productModel);
+        //    await _unitOfWork.Save();
+        //    return CreatedAtAction(nameof(GetById), new { id = productModel.Id }, productModel.ToProductDto());
+        //}
 
-        // PUT api/product/5
-        [HttpPut]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateRequestProductDto updatedDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT api/product/5
+        //[HttpPut]
+        //[Route("{id:int}")]
+        //public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateRequestProductDto updatedDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var product = await _unitOfWork.ProductRepository.GetByID(id);
-            var category = await _unitOfWork.CategoryRepository.GetByIdSubAsync(product.CategoryId);
-            if (category is null)
-            {
-                return BadRequest("Cannnot Update Product's Category to A Non-exist Parent Category");
-            }
-            if ((category.SubCategories.Any()))
-            {
-                return BadRequest("Cannnot Update Product's Category to A Parent Category");
-            }
-            if (product == null)
-            {
-                return NotFound();
-            }
-            product.Name = updatedDto.Name;
-            product.Description = updatedDto.Description;
-            product.Price = updatedDto.Price;
-            product.Color = updatedDto.Color;
-            product.ImageUrl = updatedDto.ImageUrl;
-            product.UnitsInStock = updatedDto.UnitsInStock;
-            product.UnitsSold = updatedDto.UnitsSold;
-            product.Discontinued = updatedDto.Discontinued;
-            product.CategoryId = updatedDto.CategoryId;
+        //    var product = await _unitOfWork.ProductRepository.GetByID(id);
+        //    var category = await _unitOfWork.CategoryRepository.GetByIdSubAsync(product.CategoryId);
+        //    if (category is null)
+        //    {
+        //        return BadRequest("Cannnot Update Product's Category to A Non-exist Parent Category");
+        //    }
+        //    if ((category.SubCategories.Any()))
+        //    {
+        //        return BadRequest("Cannnot Update Product's Category to A Parent Category");
+        //    }
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    product.Name = updatedDto.Name;
+        //    product.Description = updatedDto.Description;
+        //    product.Price = updatedDto.Price;
+        //    product.Color = updatedDto.Color;
+        //    product.ImageUrl = updatedDto.ImageUrl;
+        //    product.UnitsInStock = updatedDto.UnitsInStock;
+        //    product.UnitsSold = updatedDto.UnitsSold;
+        //    product.Discontinued = updatedDto.Discontinued;
+        //    product.CategoryId = updatedDto.CategoryId;
 
-            _unitOfWork.ProductRepository.Update(product);
-            await _unitOfWork.Save();
-            return Ok(product.ToProductDto());
-        }
+        //    _unitOfWork.ProductRepository.Update(product);
+        //    await _unitOfWork.Save();
+        //    return Ok(product.ToProductDto());
+        //}
 
-        // DELETE api/product/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var product = await _unitOfWork.ProductRepository.GetByID(id);
+        //// DELETE api/product/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var product = await _unitOfWork.ProductRepository.GetByID(id);
 
-            if (product is null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.ProductRepository.Delete(product);
-            try
-            {
-                await _unitOfWork.Save();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-            return NoContent();
-        }
+        //    if (product is null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _unitOfWork.ProductRepository.Delete(product);
+        //    try
+        //    {
+        //        await _unitOfWork.Save();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex);
+        //    }
+        //    return NoContent();
+        //}
     }
 }

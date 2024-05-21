@@ -1,9 +1,9 @@
 ﻿using BackEndApi.Models;
-using BackEndApi.Repositories;
 
 namespace BackEndApi.Interfaces
 {
-    public interface IProductRepository : IGenericRepository<Product>
-    {
-    }
+	public interface IProductRepository : IGenericRepository<Product>
+	{
+		public Task<Product?> GetInfoProduct(int id);
+	}
 }

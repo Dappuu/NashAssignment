@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using ViewModels.Category;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BackEndApi.Controllers
 {
     [ApiController]
@@ -27,9 +25,9 @@ namespace BackEndApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var categories = await _unitOfWork.CategoryRepository.GetAll(includeProperties: "Products");
-            var categoriesProductDto = categories.Select(c => c.ToCategoryDto()); //.Where(c => !c.SubCategories.Any())
-            return Ok(categoriesProductDto);
+            var categories = await _unitOfWork.CategoryRepository.GetAll(includeProperties: "SubCategories");
+			var categoriesProductDto = categories.Where(c => c.ParentId is null).Select(c => c.ToCategoryDto());
+			return Ok(categoriesProductDto);
         }
         // GET api/category/5
         [HttpGet("{id}")]
@@ -58,13 +56,13 @@ namespace BackEndApi.Controllers
             var categoryModel = categoryDto.ToCategoryFromCreateDto();
             await _unitOfWork.CategoryRepository.Insert(categoryModel);
             await _unitOfWork.Save();
-            return CreatedAtAction(nameof(GetById), new {id = categoryModel.Id}, categoryModel.ToCategoryDto());
+            return CreatedAtAction(nameof(GetById), new { id = categoryModel.Id }, categoryModel.ToCategoryDto());
         }
 
         // PUT api/category/5
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> Put([FromRoute]int id, [FromBody] UpdateRequestCategoryDto updatedDto)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateRequestCategoryDto updatedDto)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +75,6 @@ namespace BackEndApi.Controllers
                 return NotFound();
             }
             category.Name = updatedDto.Name;
-
             _unitOfWork.CategoryRepository.Update(category);
             await _unitOfWork.Save();
             return Ok(category.ToCategoryDto());
@@ -85,27 +82,25 @@ namespace BackEndApi.Controllers
 
         // DELETE api/category/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute]int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var category = await _unitOfWork.CategoryRepository.GetByID(id);
-            
+            var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
+
             if (category is null)
             {
                 return NotFound();
             }
+
+            if (category.SubCategories is not null && category.SubCategories.Any())
+            {
+                return BadRequest("Cannot Category because it is linked to other Subcategory!");
+            }
             _unitOfWork.CategoryRepository.Delete(category);
-            try
-            {
-                await _unitOfWork.Save();
-            }
-            catch
-            {
-                return BadRequest("Cannot Category because it is linked to other tables!");
-            }
+            await _unitOfWork.Save();
             return NoContent();
         }
     }
