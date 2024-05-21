@@ -79,7 +79,7 @@ namespace BackEndApi.Data.SeedData
 				},
 				new IdentityRole
 				{
-					Name = "user",
+					Name = "User",
 					NormalizedName = "USER",
 				},
 			};

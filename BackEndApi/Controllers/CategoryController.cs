@@ -84,24 +84,27 @@ namespace BackEndApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
 
             if (category is null)
             {
-                return NotFound();
+                return NotFound("Category not found.");
             }
 
             if (category.SubCategories is not null && category.SubCategories.Any())
             {
-                return BadRequest("Cannot Category because it is linked to other Subcategory!");
+                return BadRequest("Cannot delete category because it is linked to subcategories.");
             }
-            _unitOfWork.CategoryRepository.Delete(category);
-            await _unitOfWork.Save();
-            return NoContent();
+			try
+			{
+				_unitOfWork.CategoryRepository.Delete(category);
+				await _unitOfWork.Save();
+			}
+			catch (Exception ex)
+			{
+                return StatusCode(500, new { Message = "An error occurred while deleting the category.", Details = ex.Message });
+			}
+			return NoContent();
         }
     }
 }
