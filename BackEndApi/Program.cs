@@ -1,8 +1,10 @@
 using BackEndApi.Data;
 using BackEndApi.Interfaces;
+using BackEndApi.Models;
 using BackEndApi.Services;
 using BackEndApi.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -24,6 +26,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			.EnableSensitiveDataLogging()
 			.LogTo(Console.WriteLine, LogLevel.Information);
 	});
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 12;
+})
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthentication(options =>
 {
