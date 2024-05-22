@@ -9,25 +9,20 @@ namespace CustomerBackEnd.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-		private readonly IHttpClientFactory _clientFactory;
+        private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient _httpClient;
 
-		public HomeController(ILogger<HomeController> logger, IHttpClientFactory clientFactory)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory clientFactory)
+        {
+            _logger = logger;
+            _httpClient = clientFactory.CreateClient("BackEndApi");
+        }
+        public async Task<IActionResult> Index()
 		{
-			_logger = logger;
-			_clientFactory = clientFactory;
-		}
-
-		public async Task<IActionResult> Index()
-		{
-			HttpClient client = _clientFactory.CreateClient(name: "BackEndApi");
-			//HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: "api/category");
-
-			//HttpResponseMessage response = await client.SendAsync(request);
 			string url = "api/product?";
 			url += $"SortBy={System.Web.HttpUtility.UrlEncode("createdDate")}&";
 			url += $"IsDescending={System.Web.HttpUtility.UrlEncode("true")}";
-			HttpResponseMessage response = await client.GetAsync(url);
+			HttpResponseMessage response = await _httpClient.GetAsync(url);
 			if (!response.IsSuccessStatusCode)
 			{
 				return StatusCode((int)response.StatusCode, "Error retrieving category data from the API");

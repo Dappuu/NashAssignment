@@ -1,6 +1,7 @@
 ﻿using BackEndApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Web;
 using ViewModels.Category;
 using ViewModels.Product;
@@ -10,19 +11,17 @@ namespace CustomerBackEnd.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-		private readonly IHttpClientFactory _clientFactory;
+        private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient _httpClient;
 
 		public CategoryController(ILogger<HomeController> logger, IHttpClientFactory clientFactory)
 		{
-			_logger = logger;
-			_clientFactory = clientFactory;
-		}
-
+            _logger = logger;
+            _httpClient = clientFactory.CreateClient("BackEndApi");
+        }
 		public async Task<IActionResult> Index([FromQuery]QueryObject query)
 		{
-			HttpClient client = _clientFactory.CreateClient(name: "BackEndApi");
-			var builder = new UriBuilder(client.BaseAddress + "api/product");
+			var builder = new UriBuilder(_httpClient.BaseAddress + "api/product");
 			var queryParameters = HttpUtility.ParseQueryString(string.Empty);
 			if (!string.IsNullOrWhiteSpace(query.Name)) 
 			{
@@ -35,7 +34,7 @@ namespace CustomerBackEnd.Controllers
 			builder.Query = queryParameters.ToString();
 			string url = builder.ToString();
 
-			HttpResponseMessage response = await client.GetAsync(url);
+			HttpResponseMessage response = await _httpClient.GetAsync(url);
 			if (!response.IsSuccessStatusCode)
 			{
 				return StatusCode((int)response.StatusCode, "Error retrieving category data from the API");
@@ -58,9 +57,8 @@ namespace CustomerBackEnd.Controllers
 			{
 				return BadRequest("You must pass a category Id in the route!");
 			}
-			HttpClient client = _clientFactory.CreateClient(name: "BackEndApi");
 			string url = $"api/category/{id}";
-			HttpResponseMessage response = await client.GetAsync(url);
+			HttpResponseMessage response = await _httpClient.GetAsync(url);
 			if (!response.IsSuccessStatusCode)
 			{
 				return StatusCode((int)response.StatusCode, "Error retrieving category data from the API");
