@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using ViewModels.Account;
 using ViewModels.Product;
 
@@ -38,13 +41,23 @@ namespace CustomerBackEnd.Controllers
                 var newUserDto = await response.Content.ReadFromJsonAsync<NewUserDto>();
                 if (newUserDto is not null)
                 {
-                    var cookieOptions = new CookieOptions
+                    var claims = new List<Claim>
                     {
-                        Expires = DateTime.Now.AddDays(7),
-                        HttpOnly = true,
-                        Secure = true
+                        new Claim(ClaimTypes.Name, newUserDto.UserName),
+                        new Claim(ClaimTypes.Email, newUserDto.Email),
                     };
-                    Response.Cookies.Append("jwt", newUserDto.Token, cookieOptions);
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTime.Now.AddDays(7),
+                    };
+                    authProperties.StoreTokens(new[]
+                    {
+                        new AuthenticationToken { Name = "access_token", Value = newUserDto.Token}
+                    });
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -71,13 +84,24 @@ namespace CustomerBackEnd.Controllers
                 var newUserDto = await response.Content.ReadFromJsonAsync<NewUserDto>();
                 if (newUserDto is not null)
                 {
-                    var cookieOptions = new CookieOptions
+                    var claims = new List<Claim>
                     {
-                        Expires = DateTime.Now.AddDays(7),
-                        HttpOnly = true,
-                        Secure = true
+                        new Claim(ClaimTypes.Name, newUserDto.UserName),
+                        new Claim(ClaimTypes.Email, newUserDto.Email),
+                        new Claim("access_token", newUserDto.Token)
                     };
-                    Response.Cookies.Append("jwt", newUserDto.Token, cookieOptions);
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTime.Now.AddDays(7),
+                    };
+                    authProperties.StoreTokens(new[]
+                    {
+                        new AuthenticationToken { Name = "access_token", Value = newUserDto.Token}
+                    });
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -85,9 +109,9 @@ namespace CustomerBackEnd.Controllers
             return View(registerDto);
         }
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            Response.Cookies.Delete("jwt");
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

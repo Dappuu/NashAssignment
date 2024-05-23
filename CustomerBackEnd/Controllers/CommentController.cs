@@ -26,15 +26,9 @@ namespace CustomerBackEnd.Controllers
 				ModelState.AddModelError(string.Empty, "Invalid login attempt.");
 				return View(commentRequest);
 			}
-			var jwtToken = Request.Cookies["jwt"];
-			if (string.IsNullOrEmpty(jwtToken))
-			{
-				return RedirectToAction("Login", "Account");
-			}
 			string url = $"api/comment";
 			using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, url))
 			{
-				requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
 				var jsonContent = JsonConvert.SerializeObject(commentRequest);
 				requestMessage.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 				

@@ -1,10 +1,8 @@
-﻿@using CustomerBackEnd.Interfaces
-@using Microsoft.AspNetCore.Mvc
-@inject IAccountService accountService
+﻿@using Microsoft.AspNetCore.Mvc
 
-@if (accountService.IsSignedIn())
+@if (User.Identity is not null && User.Identity.IsAuthenticated)
 {
-    <a class="nav-link" asp-controller="Account" asp-action="Login"><i class="fas fa-user"></i></a>
+    <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
 
     <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;"></form>
     <a class="nav-link" href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i></a>

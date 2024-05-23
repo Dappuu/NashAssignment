@@ -1,5 +1,5 @@
 using CustomerBackEnd.Interfaces;
-using CustomerBackEnd.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
 using System.Net.Http.Headers;
@@ -16,16 +16,33 @@ builder.Services.AddControllersWithViews();
 //.AddDefaultTokenProviders();
 
 // Register the AccountService and IHttpContextAccessor
-builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultScheme = "Cookies"; // Set the default authentication scheme
+	options.DefaultChallengeScheme = "oidc"; // Set the default challenge scheme (if using OIDC)
+})
+.AddCookie("Cookies"); // Add cookie authentication
+
 builder.Services.AddHttpClient(name: "BackEndApi",
-  configureClient: options =>
+  configureClient: async (providers, options) =>
   {
-	  options.BaseAddress = new Uri("https://localhost:7089/");
-	  options.DefaultRequestHeaders.Accept.Add(
-		new MediaTypeWithQualityHeaderValue(mediaType: "application/json", quality: 1.0));
+	  var httpContextAccesor = providers.GetRequiredService<IHttpContextAccessor>();
+	  if (httpContextAccesor.HttpContext != null)
+	  {
+			var accessToken = await httpContextAccesor.HttpContext.GetTokenAsync("access_token");
+			options.BaseAddress = new Uri("https://localhost:7089/");
+			options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json", quality: 1.0));
+			
+		  if(!string.IsNullOrEmpty(accessToken))
+		  {
+			  options.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+		  }
+	  }
   });
+
+
 
 var app = builder.Build();
 
@@ -42,7 +59,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
 	name: "default",

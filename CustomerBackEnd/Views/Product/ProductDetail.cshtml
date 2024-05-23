@@ -1,7 +1,5 @@
-﻿@using CustomerBackEnd.Interfaces
-@using ViewModels.Product
+﻿@using ViewModels.Product
 @model ProductDto
-@inject IAccountService accountService
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -76,7 +74,7 @@
 				<div class="single-article-section">
 					@await Component.InvokeAsync("Comment", new { productId = Model.Id })
 
-					@if(accountService.IsSignedIn())
+					@if(User.Identity is not null && User.Identity.IsAuthenticated)
 					{
 						<div class="comment-template">
 							<h4>Leave a comment</h4>
@@ -89,7 +87,7 @@
 									<button style="margin:2px" type="button" class="btn btn-dark" onclick="increaseRating()"><i class="fas fa-plus"></i></button>
 									<button style="margin:2px" type="button" class="btn btn-dark" onclick="decreaseRating()"><i class="fas fa-minus"></i></button>
 								</p>
-								<p><textarea name="content" id="content" cols="30" rows="10" placeholder="Your Comment"></textarea></p>
+								<p><textarea name="content" id="content" cols="30" rows="10" placeholder="Your Comment" required></textarea></p>
 								<p><input type="submit" value="Submit"></p>
 							</form>
 						</div>
