@@ -13,8 +13,20 @@ namespace BackEndApi.Mappers
 				Id = commentModel.Id,
 				Content = commentModel.Content,
 				Rating = commentModel.Rating,
-				UserId = commentModel.UserId,
+				CreatedDate = commentModel.CreatedDate,
+				ProductId = commentModel.ProductId,
+				UserName = commentModel.User is null ? null : commentModel.User.UserName
 			};
 		}
-	}
+		public static Comment ToCommentFromCreateDto(this CreateRequestCommentDto commentDto)
+		{
+			return new Comment
+			{
+				Content = commentDto.Content,
+				ProductId = commentDto.ProductId,
+				Rating = commentDto.Rating
+			};
+		}
+
+    }
 }

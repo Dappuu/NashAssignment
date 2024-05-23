@@ -5,18 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ViewModels.User;
 
 namespace ViewModels.Comment
 {
-    public class CommentDto
-	{
-		public int Id { get; set; }
-		public required string Content { get; set; }
+    public class CreateRequestCommentDto
+    {
+        [Required]
+        public required string Content { get; set; }
+        [Required]
         [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public decimal Rating { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string? UserName { get; set; }
+		[Required]
 		public int ProductId { get; set; }
-	}
+    }
 }

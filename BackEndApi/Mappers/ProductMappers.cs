@@ -25,6 +25,7 @@ namespace BackEndApi.Mappers
                 CreatedDate = productModel.CreatedDate,
                 CategoryId = productModel.CategoryId,
                 Active = productModel.Active,
+                Rating = productModel.Rating,
                 productSkusDto = productModel.productSkus is null ? null : productModel.productSkus.Select(p => p.ToProductSkuDto()).ToList(),
                 Comments = productModel.Comments is null ? null : productModel.Comments.Select(c => c.ToCommentDto()).ToList(),
 				Images = productModel.Images is null ? null : productModel.Images.Select(i => i.ToImageDto()).ToList(),

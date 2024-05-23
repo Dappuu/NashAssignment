@@ -9,11 +9,15 @@ namespace BackEndApi.UnitOfWork
 		private readonly ApplicationDbContext _context;
 		public ICategoryRepository CategoryRepository { get; private set; }
 		public IProductRepository ProductRepository { get; private set; }
+		public ICommentRepository CommentRepository { get; private set; }
+		public IProductSkuRepository ProductSkuRepository { get; private set; }
 		public UnitOfWork(ApplicationDbContext context)
 		{
 			_context = context;
 			CategoryRepository = new CategoryRepository(context);
 			ProductRepository = new ProductRepository(context);
+			CommentRepository = new CommentRepository(context);
+			ProductSkuRepository = new ProductSkuRepository(context);
 		}
 		public async Task Save()
 		{

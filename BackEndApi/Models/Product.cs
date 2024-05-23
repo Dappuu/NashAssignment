@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEndApi.Models
 {
@@ -9,9 +10,10 @@ namespace BackEndApi.Models
 		public required string ProductSkuName { get; set; } 
 		public required string Description { get; set; } 
 		public required string Material { get; set; }
-        [Column(TypeName = ("Decimal(1, 1)"))]
+        [Column(TypeName = ("Decimal(3, 2)"))]
+        [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public decimal? Rating { get; set; }
-        [Column(TypeName = ("Decimal(12, 2)"))]
+        [Column(TypeName = ("Decimal(10, 2)"))]
 		public decimal Price { get; set; }
 		public int Discount { get; set; } = 0;
 		public int UnitsInStock { get; set; }

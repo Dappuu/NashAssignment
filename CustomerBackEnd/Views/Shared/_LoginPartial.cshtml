@@ -4,18 +4,10 @@
 
 @if (accountService.IsSignedIn())
 {
-    <a class="nav-link" asp-controller="Account" asp-action="Login">User</a>
+    <a class="nav-link" asp-controller="Account" asp-action="Login"><i class="fas fa-user"></i></a>
 
     <form id="logout-form" asp-controller="Account" asp-action="Logout" method="post" style="display: none;"></form>
-    <a class="nav-link" href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();">Logout</a>
-
-    @* <a>
-        <form class="form-inline" method="post" asp-controller="Account" asp-action="Logout">
-            <button type="submit" class="nav-link btn btn-link text-white"><b>Logout</b></button>
-        </form>    
-    </a> *@
-
-
+    <a class="nav-link" href="javascript:void(0);" onclick="document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i></a>
 }
 else
 {

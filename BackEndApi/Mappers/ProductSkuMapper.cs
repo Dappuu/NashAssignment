@@ -13,8 +13,18 @@ namespace BackEndApi.Mappers
 				ProductId = productSkuModel.ProductId,
 				UnitsInStock = productSkuModel.UnitsInStock,
 				UnitsSold = productSkuModel.UnitsSold,
-				Size =  productSkuModel.Size!.Name
+				Size =  productSkuModel.Size!.Name,
 			};
 		}
-	}
+		public static ProductSku ToProductSkuFromCreateDto(this CreateRequestProductskuDto productSkuDto) 
+		{
+			return new ProductSku
+			{
+				ProductId = productSkuDto.ProductId,
+				SizeId = productSkuDto.SizeId,
+				UnitsInStock = productSkuDto.UnitsInStock,
+			};
+		}
+
+    }
 }

@@ -6,7 +6,7 @@ namespace BackEndApi.Models
 	{
 		public int Id { get; set; }
 		public int Quantity { get; set; }
-		[Column(TypeName = ("Decimal(12, 2)"))]
+		[Column(TypeName = ("Decimal(10, 2)"))]
 		public decimal Price { get; set; }
 		public int Discount { get; set; }
 		public int? ProductSkuId { get; set; }
