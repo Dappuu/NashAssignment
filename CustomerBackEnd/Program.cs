@@ -12,16 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddIdentity<NewUserDto, IdentityRole>()
-//.AddDefaultTokenProviders();
-
 // Register the AccountService and IHttpContextAccessor
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultScheme = "Cookies"; // Set the default authentication scheme
-	options.DefaultChallengeScheme = "oidc"; // Set the default challenge scheme (if using OIDC)
+	options.DefaultChallengeScheme = "Cookies"; // Set the default challenge scheme (if using OIDC)
 })
 .AddCookie("Cookies"); // Add cookie authentication
 
@@ -41,8 +38,6 @@ builder.Services.AddHttpClient(name: "BackEndApi",
 		  }
 	  }
   });
-
-
 
 var app = builder.Build();
 
