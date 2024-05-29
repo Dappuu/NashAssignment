@@ -54,6 +54,12 @@ namespace BackEndApi.Controllers
                 return BadRequest(ModelState);
             }
             var categoryModel = categoryDto.ToCategoryFromCreateDto();
+            var categories = await _unitOfWork.CategoryRepository.GetAll();
+            var existed = categories.Any(c => c.Name.ToLower() == categoryModel.Name.ToLower());
+            if (existed)
+            {
+                return BadRequest("Category Already Exist.");
+            }
             await _unitOfWork.CategoryRepository.Insert(categoryModel);
             await _unitOfWork.Save();
             return CreatedAtAction(nameof(GetById), new { id = categoryModel.Id }, categoryModel.ToCategoryDto());

@@ -29,6 +29,7 @@ builder.Services.AddHttpClient(name: "BackEndApi",
 	  if (httpContextAccesor.HttpContext != null)
 	  {
 			var accessToken = await httpContextAccesor.HttpContext.GetTokenAsync("access_token");
+
 			options.BaseAddress = new Uri("https://localhost:7089/");
 			options.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json", quality: 1.0));
 			
