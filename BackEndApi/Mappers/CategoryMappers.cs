@@ -11,9 +11,11 @@ namespace BackEndApi.Mappers
             {
                 Id = categoryModel.Id,
                 Name = categoryModel.Name,
+                Description = categoryModel.Description,
                 ParentId = categoryModel.ParentId,
                 SubCategoriesDto = categoryModel.SubCategories is null ? null : categoryModel.SubCategories.Select(c => c.ToCategoryDto()).ToList(),
-                Products = categoryModel.Products is null ? null : categoryModel.Products.Select(p => p.ToProductDto()).ToList()
+                Products = categoryModel.Products is null ? null : categoryModel.Products.Select(p => p.ToProductDto()).ToList(),
+
                 
             };
         }
@@ -22,7 +24,8 @@ namespace BackEndApi.Mappers
             return new Category
             {
                 Name = categoryDto.Name,
-                ParentId = categoryDto.ParentId is null ? null : categoryDto.ParentId
+                ParentId = categoryDto.ParentId is null ? null : categoryDto.ParentId,
+                Description = categoryDto.Description,
             };
         }
     }

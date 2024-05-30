@@ -81,6 +81,7 @@ namespace BackEndApi.Controllers
                 return NotFound();
             }
             category.Name = updatedDto.Name;
+            category.Description = updatedDto.Description;
             _unitOfWork.CategoryRepository.Update(category);
             await _unitOfWork.Save();
             return Ok(category.ToCategoryDto());
