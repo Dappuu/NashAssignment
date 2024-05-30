@@ -7,7 +7,8 @@ namespace ViewModels.Category
 	{
 		public int Id { get; set; }
 		public required string Name { get; set; }
-		public int? ParentId { get; set; }
+        public required string Description { get; set; }
+        public int? ParentId { get; set; }
 		public List<CategoryDto>? SubCategoriesDto { get; set; }
 		public List<ProductDto>? Products { get; set; }
 
