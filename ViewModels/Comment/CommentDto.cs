@@ -15,7 +15,7 @@ namespace ViewModels.Comment
 		public required string Content { get; set; }
         [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public decimal Rating { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string? UserName { get; set; }
 		public int ProductId { get; set; }
 	}

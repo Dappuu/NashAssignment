@@ -7,5 +7,6 @@
 		IProductRepository ProductRepository { get; }
 		ICommentRepository CommentRepository { get; }
 		IProductSkuRepository ProductSkuRepository { get; }
-	}
+        ISizeRepository SizeRepository { get; }
+    }
 }

@@ -13,5 +13,13 @@ namespace BackEndApi.Mappers
 				Name = sizeModel.Name,
 			};
 		}
-	}
+		public static Size ToSizeFromCreateDto(this CreateRequestSizeDto createRequestSizeDto)
+		{
+			return new Size
+			{
+				Name = createRequestSizeDto.Name,
+			};
+		}
+
+    }
 }

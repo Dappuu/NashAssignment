@@ -11,13 +11,13 @@ namespace ViewModels.Order
 	public class OrderDto
 	{
 		public int Id { get; set; }
-		public DateTime OrderDate { get; set; }
+		public DateTime OrderDate { get; set; } = DateTime.Now;
 		public decimal Total { get; set; }
 		public int Quantity { get; set; }
 		public required string PhoneNumber { get; set; }
 		public required string City { get; set; }
 		public required string StreetAddress { get; set; }
+		public string? UserId { get; set; }
 		public List<OrderDetailDto>? OrderDetails { get; set; }
-		public int UserId { get; set; }
 	}
 }

@@ -19,7 +19,7 @@ namespace BackEndApi.Repositories
 			{
 				return null;
 			}
-			query = query.Include(p => p.Images).Include(p => p.Comments).Include(p => p.Category);
+			query = query.Include(p => p.Comments).Include(p => p.Category);
 			if (await query.AnyAsync(p => p.productSkus != null))
 			{
 				query = query.Include(p => p.productSkus!).ThenInclude(psku => psku.Size);

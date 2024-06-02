@@ -15,8 +15,6 @@ namespace BackEndApi.Mappers
                 ParentId = categoryModel.ParentId,
                 SubCategoriesDto = categoryModel.SubCategories is null ? null : categoryModel.SubCategories.Select(c => c.ToCategoryDto()).ToList(),
                 Products = categoryModel.Products is null ? null : categoryModel.Products.Select(p => p.ToProductDto()).ToList(),
-
-                
             };
         }
         public static Category ToCategoryFromCreateDto(this CreateRequestCategoryDto categoryDto)

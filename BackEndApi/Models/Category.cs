@@ -7,7 +7,6 @@ namespace BackEndApi.Models
 		public int Id { get; set; }
 		public required string Name { get; set; } 
 		public int? ParentId { get; set; }
-		[NotMapped]
 		public Category? Parent { get; set; }
         public string Description { get; set; } = string.Empty;
         public List<Category>? SubCategories { get; set; } 

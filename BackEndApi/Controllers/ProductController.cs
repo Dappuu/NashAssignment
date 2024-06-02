@@ -49,7 +49,7 @@ namespace BackEndApi.Controllers
 					_ => orderBy
                 };
             }
-            var products = await _unitOfWork.ProductRepository.GetAll(filter, orderBy, includeProperties: "Images,Category");
+            var products = await _unitOfWork.ProductRepository.GetAll(filter, orderBy, includeProperties: "Category");
             var productDto = products.Select(c => c.ToProductDto());
             return Ok(productDto);
         }

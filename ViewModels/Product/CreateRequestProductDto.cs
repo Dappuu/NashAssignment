@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ViewModels.Image;
 
 namespace ViewModels.Product
 {
@@ -20,6 +19,6 @@ namespace ViewModels.Product
 		public bool Active { get; set; } = true;
 		public int UnitsInStock { get; set; }
 		public int CategoryId { get; set; }
-		public List<ImageDto>? Images { get; set; }
-	}
+        public string? ImageUrl { get; set; }
+    }
 }

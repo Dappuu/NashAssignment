@@ -12,6 +12,7 @@ namespace BackEndApi.Models
 		public required string PhoneNumber { get; set; } 
 		public required string City { get; set; } 
 		public required string StreetAddress { get; set; }
+		public string? UserID { get; set; }
 		public User? AppUser { get; set; } 
 		public List<OrderDetail>? OrderDetails { get; set; } 
 	}

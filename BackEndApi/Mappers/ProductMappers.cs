@@ -1,9 +1,6 @@
 ﻿using BackEndApi.Models;
 using System.ComponentModel.DataAnnotations;
-using ViewModels.Comment;
-using ViewModels.Image;
 using ViewModels.Product;
-using ViewModels.ProductSku;
 
 namespace BackEndApi.Mappers
 {
@@ -28,7 +25,7 @@ namespace BackEndApi.Mappers
                 Rating = productModel.Rating,
                 productSkusDto = productModel.productSkus is null ? null : productModel.productSkus.Select(p => p.ToProductSkuDto()).ToList(),
                 Comments = productModel.Comments is null ? null : productModel.Comments.Select(c => c.ToCommentDto()).ToList(),
-				Images = productModel.Images is null ? null : productModel.Images.Select(i => i.ToImageDto()).ToList(),
+				ImageUrl = productModel.ImageUrl,
 			};
         }
 		public static Product ToProductFromCreateDto(this CreateRequestProductDto ProductDto)

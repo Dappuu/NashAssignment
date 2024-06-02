@@ -1,6 +1,5 @@
 ﻿using BackEndApi.Models;
 using Microsoft.Extensions.Logging.Abstractions;
-using ViewModels.Image;
 using ViewModels.User;
 
 namespace BackEndApi.Mappers
@@ -18,6 +17,7 @@ namespace BackEndApi.Mappers
 				DateOfBirth = userModel.DateOfBirth,
 				Comments = userModel.Comments is null ? null : userModel.Comments.Select(c => c.ToCommentDto()).ToList(),
 				Orders = userModel.Orders is null ? null : userModel.Orders.Select(c => c.ToOrderDto()).ToList(),
+				AvatarUrl = userModel.AvatarUrl,
 			};
 		}
 	}

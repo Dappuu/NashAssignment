@@ -97,7 +97,6 @@ namespace BackEndApi.Controllers
             {
                 return NotFound("Category not found.");
             }
-
             if (category.SubCategories is not null && category.SubCategories.Any())
             {
                 return BadRequest("Cannot delete category because it is linked to subcategories.");
@@ -109,7 +108,7 @@ namespace BackEndApi.Controllers
 			}
 			catch (Exception ex)
 			{
-                return StatusCode(500, new { Message = "An error occurred while deleting the category.", Details = ex.Message });
+                return StatusCode(500, new { Message = "An error occurred while deleting category.", Details = ex.Message });
 			}
 			return NoContent();
         }

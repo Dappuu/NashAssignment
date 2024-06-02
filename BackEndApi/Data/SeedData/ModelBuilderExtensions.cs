@@ -55,7 +55,7 @@ namespace BackEndApi.Data.SeedData
 
 			List<ProductSku> productSkus = new()
 			{
-				new ProductSku { Id = 1, SizeId = 1, UnitsInStock = 100, ProductId = 1 },
+				new ProductSku { Id = 1, SizeId = 1, UnitsInStock = 100, ProductId = 1},
 				new ProductSku { Id = 2, SizeId = 2, UnitsInStock = 100, ProductId = 1 },
 				new ProductSku { Id = 3, SizeId = 3, UnitsInStock = 100, ProductId = 1 },
 				new ProductSku { Id = 4, SizeId = 4, UnitsInStock = 100, ProductId = 2 },

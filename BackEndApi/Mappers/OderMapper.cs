@@ -18,6 +18,7 @@ namespace BackEndApi.Mappers
 				Quantity = orderModel.Quantity,
 				Total = orderModel.Total,
 				OrderDetails = orderModel.OrderDetails is null ? null : orderModel.OrderDetails.Select(o => o.ToOrderDetailDto()).ToList(),
+				UserId = orderModel.UserID
 			};
 		}
 	}
