@@ -58,7 +58,7 @@ namespace BackEndApi.Controllers
             var existed = sizes.Any(c => c.Name.ToLower() == sizeModel.Name.ToLower());
             if (existed)
             {
-                return BadRequest("Size Already Exist.");
+                return BadRequest("Size Already Exists.");
             }
             await _unitOfWork.SizeRepository.Insert(sizeModel);
             await _unitOfWork.Save();
@@ -73,7 +73,7 @@ namespace BackEndApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            var sizes = await _unitOfWork.SizeRepository.GetAll();
             var size = await _unitOfWork.SizeRepository.GetByID(id);
             if (size == null)
             {

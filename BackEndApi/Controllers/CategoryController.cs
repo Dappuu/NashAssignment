@@ -74,7 +74,6 @@ namespace BackEndApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var category = await _unitOfWork.CategoryRepository.GetByID(id);
             if (category == null)
             {

@@ -13,6 +13,7 @@ namespace BackEndApi.Mappers
 				ProductId = productSkuModel.ProductId,
 				UnitsInStock = productSkuModel.UnitsInStock,
 				UnitsSold = productSkuModel.UnitsSold,
+				SizeId = productSkuModel.SizeId,
 				Size =  productSkuModel.Size is null ? null : productSkuModel.Size.Name,
 			};
 		}

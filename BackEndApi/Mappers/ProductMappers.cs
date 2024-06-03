@@ -41,6 +41,7 @@ namespace BackEndApi.Mappers
                 Active = ProductDto.Active,
                 UnitsInStock = ProductDto.UnitsInStock,
                 CategoryId = ProductDto.CategoryId,
+                ImageUrl = ProductDto.ImageUrl,
             };
         }
     }
