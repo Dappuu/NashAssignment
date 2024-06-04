@@ -1,7 +1,7 @@
 import apiClient from './apiClient'
 import { CategoryDto, CreateCategoryRequest, UpdateCategoryRequest } from './models/ModelCategory';
 import { toast } from 'react-toastify';
-import { ProductDto } from './models/ModelProduct';
+import { CreateProductRequest, ProductDto, UpdateProductRequest } from './models/ModelProduct';
 import { SizeDto } from './models/ModelSize';
 import { CreateProductSkuRequest, UpdateProductSkuRequest } from './models/ModelProductSku';
 
@@ -73,6 +73,38 @@ export const getProductById = async (id:number):Promise<ProductDto> => {
         return response.data; 
     } catch (error) {
         throw new Error('Failed to get product in api'); 
+    }
+}
+export const createProduct = async (productData: CreateProductRequest) => {
+    try {
+        const response = await apiClient.post('api/product', productData);
+        toast.success("Successfully created product!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to create product in api'); 
+    }
+}
+
+export const updateProduct = async (id: number, productData: UpdateProductRequest) => {
+    try {
+        const response = await apiClient.put(`api/product/${id}`, productData);
+        toast.success("Successfully updated product!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to update product in api'); 
+    }
+}
+
+export const deleteProduct = async (id: number) => {
+    try {
+        const response = await apiClient.delete(`api/product/${id}`);
+        toast.success("Successfully deleted product!");
+        return response.data;
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to delete product in api');
     }
 }
 

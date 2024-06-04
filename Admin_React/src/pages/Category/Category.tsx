@@ -33,7 +33,7 @@ const Category = () => {
           </h2>
 
           <Link to={'form'}>
-            <button className="bg-primary text-white py-2 px-4 rounded hover:opacity-75">
+            <button className="bg-black text-white py-2 px-4 rounded hover:opacity-75">
               Create New Category
             </button>
           </Link>

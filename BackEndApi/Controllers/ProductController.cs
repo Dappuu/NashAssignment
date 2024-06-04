@@ -114,7 +114,6 @@ namespace BackEndApi.Controllers
             product.Price = updatedDto.Price;
             product.Discount = updatedDto.Discount;
             product.ImageUrl = updatedDto.ImageUrl;
-            product.UnitsInStock = updatedDto.UnitsInStock;
             product.Active = updatedDto.Active;
             product.UpdatedDate = DateTime.Now;
             

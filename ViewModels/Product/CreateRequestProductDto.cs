@@ -16,7 +16,6 @@ namespace ViewModels.Product
 		public decimal Price { get; set; }
 		public int Discount { get; set; } = 0;
 		public bool Active { get; set; } = true;
-		public int UnitsInStock { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
 		public int CategoryId { get; set; }
     }

@@ -1,4 +1,3 @@
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import TableCategory from '../../components/Tables/TableCategory';
 import { getCategoryById } from '../../api';
@@ -9,18 +8,7 @@ import { CategoryDto } from '../../models/ModelCategory';
 
 const CategoryDetail = () => {
   const [categoryInfo, setCategoryInfo] = useState<CategoryDto>();
-  const [categoryParent, setCategoryParent] = useState<CategoryDto>();
   const { id } = useParams();
-  const fetchCategoryParentInfo = async () => {
-    if (categoryInfo?.parentId) {
-      try {
-        const data = await getCategoryById(categoryInfo.parentId);
-        setCategoryParent(data);
-      } catch (error) {
-        console.error('Error fetching category by id:', error);
-      }
-    }
-  };
   const fetchCategoryInfo = async () => {
     try {
       const data = await getCategoryById(parseInt(id!));
@@ -29,14 +17,12 @@ const CategoryDetail = () => {
       console.error('Error fetching categories:', error);
     }
   };
-  useEffect(() => {    
+  useEffect(() => {
     fetchCategoryInfo();
-    fetchCategoryParentInfo();
   }, [id]);
 
   const onClickDelete = () => {
     fetchCategoryInfo();
-    fetchCategoryParentInfo();
   }
 
   return (
@@ -45,11 +31,6 @@ const CategoryDetail = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <Breadcrumb
-            pageName="Category"
-            parentId={categoryInfo.parentId}
-            parentName={categoryParent?.name}
-          />
           <div className="flex flex-col bg-white gap-2 px-6 rounded-xl pb-4">
             {categoryInfo && (
               <div className="mt-4">
@@ -75,24 +56,32 @@ const CategoryDetail = () => {
             )}
             {(categoryInfo.subCategoriesDto?.length != 0 ||
               categoryInfo.parentId === null) && (
-              <>
-                <div className="flex justify-between items-center">
-                  <h3 className="text-title-md font-medium text-black dark:text-white mb-2 ">
-                    Sub-Category
-                  </h3>
-                  <Link to={`/category/form?parentId=${categoryInfo.id}`}>
-                    <button className="bg-black text-white py-2 px-4 rounded hover:opacity-75">
-                      Create New Category
-                    </button>
-                  </Link>
-                </div>
-                {categoryInfo.subCategoriesDto && (
-                  <TableCategory
-                    categoriesDto={categoryInfo.subCategoriesDto} onClickDelete = {onClickDelete}
-                  />
-                )}
-              </>
-            )}
+                <>
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-title-md font-medium text-black dark:text-white mb-2 ">
+                      Sub-Category
+                    </h3>
+                    <div className='gap-2 flex'>
+                      <Link to={`/category/form?parentId=${categoryInfo.id}`}
+                        state={categoryInfo}>
+                        <button className="bg-black text-white py-2 px-4 rounded hover:opacity-75">
+                          Update Category
+                        </button>
+                      </Link>
+                      <Link to={`/category/form?parentId=${categoryInfo.id}`}>
+                        <button className="bg-black text-white py-2 px-4 rounded hover:opacity-75">
+                          Add New SubCategory
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                  {categoryInfo.subCategoriesDto && (
+                    <TableCategory
+                      categoriesDto={categoryInfo.subCategoriesDto} onClickDelete={onClickDelete}
+                    />
+                  )}
+                </>
+              )}
           </div>
         </>
       )}

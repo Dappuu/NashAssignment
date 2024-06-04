@@ -14,10 +14,16 @@ import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import Category from './pages/Category/Category';
-import FormCategory from './pages/Form/Category/FormCategory';
+import FormCategory from './pages/Form/FormCategory';
 import 'react-toastify/dist/ReactToastify.css';
 import ECommerce from './pages/Dashboard/ECommerce';
 import CategoryDetail from './pages/Category/CategoryDetail';
+import Product from './pages/Product/Product';
+import ProductDetail from './pages/Product/ProductDetail';
+import Size from './pages/Size/Size';
+import FormSize from './pages/Form/FormSize';
+import FormProductSku from './pages/Form/FormProductSku';
+import FormProduct from './pages/Form/FormProduct';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -57,7 +63,7 @@ function App() {
               path="/category/:id"
               element={
                 <>
-                  <PageTitle title="Category" />
+                  <PageTitle title="Category Detail" />
                   <CategoryDetail />
                 </>
               } 
@@ -68,6 +74,60 @@ function App() {
               <>
                 <PageTitle title="Form Category" />
                 <FormCategory />
+              </>
+            }
+          />
+        <Route
+            path="/product"
+            element={
+              <>
+                <PageTitle title="Product" />
+                <Product />
+              </>
+            } 
+          />
+            <Route
+            path="/product/:id"
+            element={
+              <>
+                <PageTitle title="Product Detail" />
+                <ProductDetail />
+              </>
+            } 
+          />
+          <Route
+            path="/product/form"
+            element={
+              <>
+                <PageTitle title="Form Product" />
+                <FormProduct />
+              </>
+            }
+          />
+        <Route
+            path="/productSku/form"
+            element={
+              <>
+                <PageTitle title="Form Product Sku" />
+                <FormProductSku />
+              </>
+            }
+          />
+        <Route
+            path="/size"
+            element={
+              <>
+                <PageTitle title="Size" />
+                <Size />
+              </>
+            } 
+          />
+          <Route
+            path="/size/form"
+            element={
+              <>
+                <PageTitle title="Form Size" />
+                <FormSize />
               </>
             }
           />
