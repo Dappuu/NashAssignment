@@ -11,6 +11,5 @@ namespace ViewModels.Category
         public int? ParentId { get; set; }
 		public List<CategoryDto>? SubCategoriesDto { get; set; }
 		public List<ProductDto>? Products { get; set; }
-
-	}
+    }
 }

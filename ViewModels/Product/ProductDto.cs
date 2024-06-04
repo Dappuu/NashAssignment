@@ -19,7 +19,7 @@ namespace ViewModels.Product
 		public int Discount { get; set; } 
 		public int UnitsInStock { get; set; }
 		public int UnitsSold { get; set; }
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
 		public DateTime UpdatedDate { get; set; } = DateTime.Now;
         public bool Active { get; set; } 

@@ -9,8 +9,7 @@ namespace ViewModels.Product
 		public required string Name { get; set; }
 		[Required]
 		public required string ProductSkuName { get; set; }
-		[Required]
-		public required string Description { get; set; }
+		public string Description { get; set; } = string.Empty;
 		[Required]
 		public required string Material { get; set; }
 		[Required]
@@ -18,7 +17,7 @@ namespace ViewModels.Product
 		public int Discount { get; set; } = 0;
 		public bool Active { get; set; } = true;
 		public int UnitsInStock { get; set; }
+        public string ImageUrl { get; set; } = string.Empty;
 		public int CategoryId { get; set; }
-        public string? ImageUrl { get; set; }
     }
 }

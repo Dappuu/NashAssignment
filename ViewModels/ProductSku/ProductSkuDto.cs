@@ -17,6 +17,7 @@ namespace ViewModels.ProductSku
 		public int UnitsInStock { get; set; }
 		public int UnitsSold { get; set; }
 		public string? Size { get; set; }
+        public int? SizeId { get; set; }
         public List<OrderDetailDto>? OrderDetailsDto { get; set; }
     }
 }

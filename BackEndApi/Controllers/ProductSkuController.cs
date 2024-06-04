@@ -106,6 +106,9 @@ namespace BackEndApi.Controllers
             try
             {
                 _unitOfWork.ProductSkuRepository.Delete(productSku);
+                var product = await _unitOfWork.ProductRepository.GetInfoProduct(productSku.ProductId);
+                product!.UnitsInStock = product.productSkus!.Sum(p => p.UnitsInStock);
+                _unitOfWork.ProductRepository.Update(product);
                 await _unitOfWork.Save();
             }
             catch (Exception ex)
