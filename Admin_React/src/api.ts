@@ -1,10 +1,12 @@
-import useSWR from 'swr';
 import apiClient from './apiClient'
-import { categoryDto, createCategoryRequest, updateCategoryRequest } from './models/ModelCategory';
+import { CategoryDto, CreateCategoryRequest, UpdateCategoryRequest } from './models/ModelCategory';
 import { toast } from 'react-toastify';
+import { ProductDto } from './models/ModelProduct';
+import { SizeDto } from './models/ModelSize';
+import { CreateProductSkuRequest, UpdateProductSkuRequest } from './models/ModelProductSku';
 
-
-export const getAllCategories = async ():Promise<categoryDto[]> => {
+// Category
+export const getAllCategories = async ():Promise<CategoryDto[]> => {
     try {
         const response = await apiClient.get('api/category');
         return response.data; 
@@ -13,7 +15,7 @@ export const getAllCategories = async ():Promise<categoryDto[]> => {
     }
 }
 
-export const getCategoryById = async (id:number):Promise<categoryDto> => {
+export const getCategoryById = async (id:number):Promise<CategoryDto> => {
     try {
         const response = await apiClient.get(`api/category/${id}`);
         return response.data; 
@@ -22,36 +24,24 @@ export const getCategoryById = async (id:number):Promise<categoryDto> => {
     }
 }
 
-export const createCategory = async (categoryData: createCategoryRequest) => {
+export const createCategory = async (categoryData: CreateCategoryRequest) => {
     try {
         const response = await apiClient.post('api/category', categoryData);
-        toast.success("Successfully created category!", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1500
-          });
+        toast.success("Successfully created category!");
         return response.data; 
-    } catch (error) {
-        toast.error("Failed to create category", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1500
-          });
+    } catch (error: any) {
+        toast.error(error.response.data);
         throw new Error('Failed to create category in api'); 
     }
 }
 
-export const updateCategory = async (id: number, categoryData: updateCategoryRequest) => {
+export const updateCategory = async (id: number, categoryData: UpdateCategoryRequest) => {
     try {
         const response = await apiClient.put(`api/category/${id}`, categoryData);
-        toast.success("Successfully updated category!", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1500
-          });
+        toast.success("Successfully updated category!");
         return response.data; 
-    } catch (error) {
-        toast.error("Failed to update category", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 1500
-          });
+    } catch (error: any) {
+        toast.error(error.response.data);
         throw new Error('Failed to update category in api'); 
     }
 }
@@ -59,14 +49,105 @@ export const updateCategory = async (id: number, categoryData: updateCategoryReq
 export const deleteCategory = async (id: number) => {
     try {
         const response = await apiClient.delete(`api/category/${id}`);
-        toast.success("Successfully deleted category!", {
-            position: toast.POSITION.TOP_RIGHT,
-        });
+        toast.success("Successfully deleted category!");
         return response.data;
-    } catch (error) {
-        toast.error("Failed to delete category", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+    } catch (error: any) {
+        toast.error(error.response.data);
         throw new Error('Failed to delete category in api');
+    }
+}
+
+// Product
+export const getAllProducts = async ():Promise<ProductDto[]> => {
+    try {
+        const response = await apiClient.get('api/product');
+        return response.data; 
+    } catch (error) {
+        throw new Error('Failed to get all products in api'); 
+    }
+}
+
+export const getProductById = async (id:number):Promise<ProductDto> => {
+    try {
+        const response = await apiClient.get(`api/product/${id}`);
+        return response.data; 
+    } catch (error) {
+        throw new Error('Failed to get product in api'); 
+    }
+}
+
+// ProductSku
+export const createProductSku = async (productSkuData: CreateProductSkuRequest) => {
+    try {
+        const response = await apiClient.post('api/productSku', productSkuData);
+        toast.success("Successfully created productSku!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to create productSku in api'); 
+    }
+}
+
+export const updateProductSku = async (id: number, productSkuData: UpdateProductSkuRequest) => {
+    try {
+        const response = await apiClient.put(`api/productSku/${id}`, productSkuData);
+        toast.success("Successfully updated productSku!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to update productSku in api'); 
+    }
+}
+
+export const deleteProductSku = async (id: number) => {
+    try {
+        const response = await apiClient.delete(`api/productSku/${id}`);
+        toast.success("Successfully deleted productSku!");
+        return response.data;
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to delete productSku in api');
+    }
+}
+
+// Size
+export const getAllSizes = async ():Promise<SizeDto[]> => {
+    try {
+        const response = await apiClient.get('api/size');
+        return response.data; 
+    } catch (error) {
+        throw new Error('Failed to get all sizes in api'); 
+    }
+}
+export const createSize = async (sizeData: {name: string}) => {
+    try {
+        const response = await apiClient.post('api/size', sizeData);
+        toast.success("Successfully created size!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to create size in api'); 
+    }
+}
+
+export const updateSize = async (id: number, sizeData: {name: string}) => {
+    try {
+        const response = await apiClient.put(`api/size/${id}`, sizeData);
+        toast.success("Successfully updated size!");
+        return response.data; 
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to update size in api'); 
+    }
+}
+
+export const deleteSize = async (id: number) => {
+    try {
+        const response = await apiClient.delete(`api/size/${id}`);
+        toast.success("Successfully deleted size!");
+        return response.data;
+    } catch (error: any) {
+        toast.error(error.response.data);
+        throw new Error('Failed to delete size in api');
     }
 }
