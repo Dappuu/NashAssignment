@@ -1,17 +1,17 @@
-export interface categoryDto {
+export interface CategoryDto {
     id: number;
     name: string;
     description: string;
     parentId?: number;
-    subCategoriesDto: categoryDto[] | null;
+    subCategoriesDto: CategoryDto[] | null;
 }
-export interface createCategoryRequest {
+export interface CreateCategoryRequest {
     name: string;
     parentId: number | null;
     description: string;
 }
 
-export interface updateCategoryRequest {
+export interface UpdateCategoryRequest {
     name: string;
     description: string;
 }

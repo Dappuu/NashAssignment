@@ -14,15 +14,15 @@ const Breadcrumb = ({ pageName, parentId, parentName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to={`/${pageName}`}>
+            <Link className="font-medium" to={`/${pageName.toLowerCase()}`}>
               {pageName}
             </Link>
           </li>
           {
             parentId ?
             <li className="font-medium text-primary">
-              <Link className="font-medium" to={`/${pageName}/${parentId}`}>
-                /{parentName}
+              <Link className="font-medium" to={`/${pageName.toLowerCase()}/${parentId}`}>
+                / {parentName}
               </Link>
             </li> : <></>
           }

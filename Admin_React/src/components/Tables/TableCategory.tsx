@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { categoryDto } from '../../models/ModelCategory';
+import { CategoryDto } from '../../models/ModelCategory';
 import { deleteCategory } from '../../api';
 import Swal from 'sweetalert2';
 
 interface Props {
-  categoriesDto: categoryDto[] | null;
+  categoriesDto: CategoryDto[] | null;
+  onClickDelete: () => void;
 }
 
-const TableCategory = ({ categoriesDto }: Props) => {
+const TableCategory = ({ categoriesDto, onClickDelete }: Props) => {
   const handleClickDelete = async (id: number): Promise<void> => {
     Swal.fire({
       title: "Are you sure?",
@@ -21,25 +22,26 @@ const TableCategory = ({ categoriesDto }: Props) => {
       if (result.isConfirmed) {
         await deleteCategory(id);
       }
+      onClickDelete();
     });
   }
 
   return (
-    <div className="rounded-sm px-5 py-5 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4 xl:pb-1">
-      <div className="max-w-full overflow-x-auto">
+    <div className="rounded-sm px-5 py-5 pb-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="max-w-full overflow-x-auto text-center">
         <table className="w-full table-auto">
           <thead>
-            <tr className="bg-gray-2 text-left dark:bg-meta-4">
-              <th className="min-w-[40px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+            <tr className="bg-gray-2 dark:bg-meta-4 text-center">
+              <th className="min-w-[80px] py-4 font-medium text-black dark:text-white xl:pl-11">
                 Id
               </th>
-              <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+              <th className="min-w-[150px] py-4 font-medium text-black dark:text-white">
                 Name
               </th>
-              <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+              <th className="min-w-[200px] py-4 font-medium text-black dark:text-white">
                 Description
               </th>
-              <th className="py-4 px-4 font-medium text-black dark:text-white">
+              <th className="py-4 font-medium text-black dark:text-white">
                 Actions
               </th>
             </tr>
@@ -47,25 +49,25 @@ const TableCategory = ({ categoriesDto }: Props) => {
           <tbody>
             {categoriesDto!.map((categoryDto, index) => (
               <tr key={index}>
-                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                <td className="border-b border-[#eee] py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
                     {categoryDto.id}
                   </h5>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b border-[#eee] py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {categoryDto.name}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4  dark:border-strokedark">
+                <td className="border-b border-[#eee] py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {categoryDto.description}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <div className="flex items-center space-x-3.5">
-                    <Link to={`/category/${categoryDto.id}`}>
-                      <button className="hover:text-primary items-center">
+                <td className="border-b border-[#eee] py-5 dark:border-strokedark">
+                  <div className="flex justify-center space-x-3.5">
+                    <Link to={`/category/${categoryDto.id}`} className='block'>
+                      <button className="hover:text-primary">
                         <svg
                           className="w-6 h-6 text-gray-800 dark:text-white"
                           aria-hidden="true"
@@ -88,7 +90,9 @@ const TableCategory = ({ categoriesDto }: Props) => {
                         </svg>
                       </button>
                     </Link>
-                    <Link to={categoryDto.parentId !== null ? `/category/form?parentId=${categoryDto.parentId}` : '/category/form'} state={categoryDto}>
+                    <Link className='block'
+                      to={categoryDto.parentId !== null ? `/category/form?parentId=${categoryDto.parentId}` : '/category/form'}
+                      state={categoryDto}>
                       <button className="hover:text-primary">
                         <svg
                           className="w-6 h-6 text-gray-800 dark:text-white"

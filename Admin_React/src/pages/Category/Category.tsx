@@ -1,32 +1,32 @@
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../layout/DefaultLayout';
 import TableCategory from '../../components/Tables/TableCategory';
 import { getAllCategories} from '../../api';
 import { Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { categoryDto } from '../../models/ModelCategory';
+import { CategoryDto } from '../../models/ModelCategory';
 
 
 const Category = () => {
-  const [categories, setCategories] = useState<categoryDto[]>([]);
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+  const fetchCategories = async () => {
+    try {
+      const data = await getAllCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const data = await getAllCategories();
-        setCategories(data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
+    if (categories.length === 0)
+    {
+      fetchCategories();
       }
-    };
-    fetchCategories();
   }, [categories]);
-
-  if (!categories) return <div>Loading...</div>;
+  const onClickDelete = () => fetchCategories();
 
   return (
     <DefaultLayout>
-      {/* <Breadcrumb pageName="Category" /> */}
-      <div className="flex flex-col bg-white px-4 rounded-xl pb-4">
+      <div className="flex flex-col bg-white px-4 rounded-xl pb-6">
         <div className="flex justify-between pt-6 px-4 md:px-6 xl:px-7.5 items-center">
           <h2 className="text-title-md2 font-semibold text-black dark:text-white">
             Category
@@ -38,7 +38,7 @@ const Category = () => {
             </button>
           </Link>
         </div>
-        <TableCategory categoriesDto={categories} />
+        <TableCategory categoriesDto={categories} onClickDelete={onClickDelete} />
       </div>
     </DefaultLayout>
   );
