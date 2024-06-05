@@ -2,21 +2,9 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
-import SignIn from './pages/Authentication/SignIn';
-import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
-import Chart from './pages/Chart';
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
-import Tables from './pages/Tables';
-import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
 import Category from './pages/Category/Category';
 import FormCategory from './pages/Form/FormCategory';
 import 'react-toastify/dist/ReactToastify.css';
-import ECommerce from './pages/Dashboard/ECommerce';
 import CategoryDetail from './pages/Category/CategoryDetail';
 import Product from './pages/Product/Product';
 import ProductDetail from './pages/Product/ProductDetail';
@@ -24,6 +12,8 @@ import Size from './pages/Size/Size';
 import FormSize from './pages/Form/FormSize';
 import FormProductSku from './pages/Form/FormProductSku';
 import FormProduct from './pages/Form/FormProduct';
+import User from './pages/User/User';
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -39,198 +29,108 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
-      <>
+    <>
       <Routes>
         <Route
-          index
+          path="/"
           element={
             <>
               <PageTitle title="Category" />
               <Category />
             </>
-          } 
-        /> 
+          }
+        />
         <Route
-            path="/category"
-            element={
-              <>
-                <PageTitle title="Category" />
-                <Category />
-              </>
-            } 
-          />
-          <Route
-              path="/category/:id"
-              element={
-                <>
-                  <PageTitle title="Category Detail" />
-                  <CategoryDetail />
-                </>
-              } 
-            />
-          <Route
-            path="/category/form"
-            element={
-              <>
-                <PageTitle title="Form Category" />
-                <FormCategory />
-              </>
-            }
-          />
-        <Route
-            path="/product"
-            element={
-              <>
-                <PageTitle title="Product" />
-                <Product />
-              </>
-            } 
-          />
-            <Route
-            path="/product/:id"
-            element={
-              <>
-                <PageTitle title="Product Detail" />
-                <ProductDetail />
-              </>
-            } 
-          />
-          <Route
-            path="/product/form"
-            element={
-              <>
-                <PageTitle title="Form Product" />
-                <FormProduct />
-              </>
-            }
-          />
-        <Route
-            path="/productSku/form"
-            element={
-              <>
-                <PageTitle title="Form Product Sku" />
-                <FormProductSku />
-              </>
-            }
-          />
-        <Route
-            path="/size"
-            element={
-              <>
-                <PageTitle title="Size" />
-                <Size />
-              </>
-            } 
-          />
-          <Route
-            path="/size/form"
-            element={
-              <>
-                <PageTitle title="Form Size" />
-                <FormSize />
-              </>
-            }
-          />
-        <Route
-          path="/calendar"
+          path="/category"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Calendar />
+              <PageTitle title="Category" />
+              <Category />
             </>
           }
         />
         <Route
-          path="/profile"
+          path="/category/:id"
           element={
             <>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Profile />
+              <PageTitle title="Category Detail" />
+              <CategoryDetail />
             </>
           }
         />
         <Route
-          path="/forms/form-elements"
+          path="/category/form"
           element={
             <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormElements />
+              <PageTitle title="Form Category" />
+              <FormCategory />
             </>
           }
         />
         <Route
-          path="/forms/form-layout"
+          path="/product"
           element={
             <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <FormLayout />
+              <PageTitle title="Product" />
+              <Product />
             </>
           }
         />
         <Route
-          path="/tables"
+          path="/product/:id"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Tables />
+              <PageTitle title="Product Detail" />
+              <ProductDetail />
             </>
           }
         />
         <Route
-          path="/settings"
+          path="/product/form"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Settings />
+              <PageTitle title="Form Product" />
+              <FormProduct />
             </>
           }
         />
         <Route
-          path="/chart"
+          path="/productSku/form"
           element={
             <>
-              <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Chart />
+              <PageTitle title="Form Product Sku" />
+              <FormProductSku />
             </>
           }
         />
         <Route
-          path="/ui/alerts"
+          path="/size"
           element={
             <>
-              <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Alerts />
+              <PageTitle title="Size" />
+              <Size />
             </>
           }
         />
         <Route
-          path="/ui/buttons"
+          path="/size/form"
           element={
             <>
-              <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Buttons />
+              <PageTitle title="Form Size" />
+              <FormSize />
             </>
           }
         />
         <Route
-          path="/auth/signin"
+          path="/user"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <SignIn />
+              <PageTitle title="User" />
+              <User />
             </>
           }
         />
-        <Route
-          path="/auth/signup"
-          element={
-            <>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <SignUp />
-            </>
-          }
-        />
-        </Routes>
+      </Routes>
     </>
   );
 }

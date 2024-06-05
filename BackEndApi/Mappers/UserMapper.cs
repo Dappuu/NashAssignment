@@ -10,6 +10,8 @@ namespace BackEndApi.Mappers
 		{
 			return new UserDto
 			{
+				UserId = userModel.Id,
+				UserName = userModel.UserName is null ? string.Empty : userModel.UserName,
 				FirstName = userModel.FirstName,
 				LastName = userModel.LastName,
 				City = userModel.City,
@@ -18,6 +20,7 @@ namespace BackEndApi.Mappers
 				Comments = userModel.Comments is null ? null : userModel.Comments.Select(c => c.ToCommentDto()).ToList(),
 				Orders = userModel.Orders is null ? null : userModel.Orders.Select(c => c.ToOrderDto()).ToList(),
 				AvatarUrl = userModel.AvatarUrl,
+				Email = userModel.Email is not null ? userModel.Email : string.Empty,
 			};
 		}
 	}

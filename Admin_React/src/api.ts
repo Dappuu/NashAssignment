@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { CreateProductRequest, ProductDto, UpdateProductRequest } from './models/ModelProduct';
 import { SizeDto } from './models/ModelSize';
 import { CreateProductSkuRequest, UpdateProductSkuRequest } from './models/ModelProductSku';
+import { UserDto } from './models/ModelUser';
 
 // Category
 export const getAllCategories = async ():Promise<CategoryDto[]> => {
@@ -181,5 +182,14 @@ export const deleteSize = async (id: number) => {
     } catch (error: any) {
         toast.error(error.response.data);
         throw new Error('Failed to delete size in api');
+    }
+}
+// User
+export const getAllUsers = async ():Promise<UserDto[]> => {
+    try {
+        const response = await apiClient.get('api/account');
+        return response.data; 
+    } catch (error) {
+        throw new Error('Failed to get all users in api'); 
     }
 }

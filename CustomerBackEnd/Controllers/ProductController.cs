@@ -48,12 +48,15 @@ namespace CustomerBackEnd.Controllers
 				{
 					 foreach(var productSkuDto in productDto.productSkusDto)
 					{
-						if (productSkuDto.UnitsInStock > 0)
+						if (productSkuDto.UnitsInStock > 0 && productSkuDto.Size is not null)
 						{
 							sizes.Add(productSkuDto.Size);
 						}
 					}
+					 if(sizes.Any())
+					{
 					ViewData["Sizes"] = sizes;
+					}
 				}
 				return View(productDto);
 			}

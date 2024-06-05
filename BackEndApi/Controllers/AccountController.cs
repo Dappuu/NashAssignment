@@ -1,7 +1,9 @@
 ﻿using BackEndApi.Interfaces;
+using BackEndApi.Mappers;
 using BackEndApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ViewModels.Account;
 
 
@@ -21,6 +23,13 @@ namespace BackEndApi.Controllers
 			_signInManager = signInManager;
 			_tokenService = tokenService;
 		}
+		[HttpGet]
+		public async Task<IActionResult> GetAllUsers()
+		{
+            var users = await _userManager.Users.ToListAsync();
+			var usersDto = users.Select(u => u.ToUserDto());
+			return Ok(usersDto);
+        }
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginDto loginDto)
 		{

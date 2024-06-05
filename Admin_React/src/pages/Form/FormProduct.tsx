@@ -131,7 +131,7 @@ const FormElements = () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     await uploadBytes(imageRef, imageUpload).then(() => {
-      toast.success("Image Uploaded");
+      // toast.success("Image Uploaded");
     });
     await getDownloadURL(imageRef).then((downloadURL) => {
       imgUrl = downloadURL;
@@ -234,7 +234,7 @@ const FormElements = () => {
                 type="text"
                 placeholder="Type your description..."
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-primary dark:text-white outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                {...register('description', { required: "Description is required." })}
+                {...register('description', { })}
               />
               {errors.description && <span className='text-red-500 p-3'>{errors.description.message}</span>}
             </div>

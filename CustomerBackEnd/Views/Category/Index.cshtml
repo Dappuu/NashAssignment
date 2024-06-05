@@ -1,4 +1,5 @@
-﻿@using ViewModels.Product
+﻿@using ViewModels.Category
+@using ViewModels.Product
 @model List<ProductDto>
 
 @{
@@ -35,13 +36,31 @@
 			</div>
 		</div>
 
-		<div class="row product-lists">
+		@if (ViewBag.Categories is not null)
+		{
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-filters">
+						<ul>
+							<li class="active" data-filter="*">All</li>
+							@foreach (CategoryDto categoriesDto in ViewBag.Categories)
+							{
+								@* <li data-filter=".(@subcategoriesDto.Id)">@subcategoriesDto.Name</li> *@
+								<li><a class="text-muted" asp-controller="Category" asp-action="CategoryDetail" asp-route-id="@categoriesDto.Id">@categoriesDto.Name</a></li>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+		}
+
+		<div class="row">
 			@foreach (ProductDto productDto in Model)
 			{
 				<div class="col-lg-4 col-md-6 text-center @productDto.Name">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@productDto.Id"><img src="~/img/vongKhoaTruot.webp" alt=""></a>
+							<a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@productDto.Id"><img src="@productDto.ImageUrl" alt="@productDto.Name"></a>
 						</div>
 						<h3 class="h2">@productDto.Name</h3>
 						<p class="product-price"> @string.Format("{0:c0}", productDto.Price) VND </p>

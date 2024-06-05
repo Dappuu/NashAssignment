@@ -42,13 +42,13 @@
 				</div>
 			</div>
 		
-			<div class="row product-lists">
+			<div class="row">
 				@foreach (ProductDto productDto in Model)
 				{
 						<div class="col-lg-4 col-md-6 text-center @productDto.Name">
 							<div class="single-product-item">
 								<div class="product-image">
-								<a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@productDto.Id"><img src="~/img/vongKhoaTruot.webp" alt=""></a>
+								<a asp-controller="Product" asp-action="ProductDetail" asp-route-id="@productDto.Id"><img src="@productDto.ImageUrl" alt="@productDto.Name"></a>
 								</div>
 								<h3 class="h2">@productDto.Name</h3>
 								<p class="product-price"> @string.Format("{0:c0}", productDto.Price) VND </p>

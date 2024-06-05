@@ -21,6 +21,19 @@ namespace CustomerBackEnd.Controllers
         }
 		public async Task<IActionResult> Index([FromQuery]QueryObject query)
 		{
+			string url_categories = $"api/category";
+			HttpResponseMessage response_categories = await _httpClient.GetAsync(url_categories);
+			var content_categories = await response_categories.Content.ReadAsStringAsync();
+			List<CategoryDto>? categoriesDto = JsonConvert.DeserializeObject<List<CategoryDto>>(content_categories);
+			if (categoriesDto != null)
+			{
+				ViewBag.Categories = categoriesDto;
+			}
+			else
+			{
+				ViewBag.Categories = null;
+			}
+
 			var builder = new UriBuilder(_httpClient.BaseAddress + "api/product");
 			var queryParameters = HttpUtility.ParseQueryString(string.Empty);
 			if (!string.IsNullOrWhiteSpace(query.Name)) 
