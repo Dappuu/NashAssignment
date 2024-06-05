@@ -22,10 +22,6 @@ namespace BackEndApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var sizes = await _unitOfWork.SizeRepository.GetAll();
             var sizesDto = sizes.Select(s => s.ToSizeDto());
             return Ok(sizesDto);
@@ -34,10 +30,6 @@ namespace BackEndApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var size = await _unitOfWork.SizeRepository.GetByID(id);
             if (size is null)
             {

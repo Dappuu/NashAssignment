@@ -20,3 +20,38 @@ html {
 body {
   margin-bottom: 60px;
 }
+.single-product-pricing {
+    display: flex;
+    align-items: center;
+}
+
+.original-price {
+    margin-right: 5px;
+    text-decoration: line-through;
+    font-weight: normal; /* Remove bold styling */
+}
+
+.discounted-price {
+    margin-right: 5px;
+    font-weight: bold;
+    background-color: lightpink; /* Customize the color as needed */
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.discount-percentage {
+    font-weight: bold;
+    background-color: black; /* Customize the color as needed */
+    color: white;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.equal-spacing {
+    word-spacing: 0.5em;
+}
+
+.equal-spacing span {
+    display: inline-block;
+    white-space: nowrap;
+}

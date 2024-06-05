@@ -27,14 +27,22 @@
 			<div class="col-md-7">
 				<div class="single-product-content">
 					<h3>@Model.Name</h3>
-					<p class="single-product-pricing"> 
-					@if(Model.Rating is not null)
-					{
-							<span>@Model.Rating.Value.ToString("n1") <i class="fas fa-star" style="color:khaki"></i></span>
-					}
-					@string.Format("{0:c0}", Model.Price) VND
-					</p> 
-					<p>@Model.Description</p>
+					<p class="single-product-pricing">
+						@if (Model.Rating is not null)
+						{
+							<span>@Model.Rating.Value.ToString("n2") <i class="fas fa-star" style="color:khaki"></i></span>
+						}
+						@if (Model.Discount > 0)
+						{
+							<span class="discounted-price"><b>@string.Format("{0:n0}", Model.Price * ((100 - Model.Discount) / 100m)) VND</b></span>
+							<span><del class="original-price">@string.Format("{0:n0}", Model.Price) VND</del></span>
+							<span class="discount-percentage"><b>-@Model.Discount.ToString("n0")%</b></span>
+						}
+						else
+						{
+							<span>@string.Format("{0:c0}", Model.Price) VND</span> <!-- Price without discount -->
+						}
+					</p>
 					@if (ViewBag.Sizes is not null)
 					{
 						<label style="font-size:130%" for="size-button"><b>Size</b></label>

@@ -21,10 +21,6 @@ namespace BackEndApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var productSku = await _unitOfWork.ProductSkuRepository.GetInfoProductSku(id);
             if (productSku is null)
             {
@@ -36,10 +32,6 @@ namespace BackEndApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateRequestProductskuDto productSkuDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var productSkuModel = productSkuDto.ToProductSkuFromCreateDto();
             var product = await _unitOfWork.ProductRepository.GetInfoProduct(productSkuModel.ProductId);
             if (product is null)

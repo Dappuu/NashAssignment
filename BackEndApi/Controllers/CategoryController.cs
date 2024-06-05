@@ -33,10 +33,6 @@ namespace BackEndApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
             if (category is null)
             {
@@ -49,10 +45,6 @@ namespace BackEndApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateRequestCategoryDto categoryDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var categoryModel = categoryDto.ToCategoryFromCreateDto();
             var categories = await _unitOfWork.CategoryRepository.GetAll();
             var existed = categories.Any(c => c.Name.ToLower() == categoryModel.Name.ToLower());

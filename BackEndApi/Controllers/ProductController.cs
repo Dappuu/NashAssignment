@@ -24,10 +24,6 @@ namespace BackEndApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             Expression<Func<Product, bool>> filter = null!;
             Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null!;
             if (!(string.IsNullOrWhiteSpace(query.Name)))
@@ -46,6 +42,8 @@ namespace BackEndApi.Controllers
                         query.IsDescending ? c => c.OrderByDescending(c => c.UnitsSold) : c => c.OrderBy(c => c.UnitsSold),
 					var sort when sort.Equals("CreatedDate", StringComparison.OrdinalIgnoreCase) =>
 					    query.IsDescending ? c => c.OrderByDescending(c => c.CreatedDate) : c => c.OrderBy(c => c.CreatedDate),
+					var sort when sort.Equals("UpdatedDate", StringComparison.OrdinalIgnoreCase) =>
+					query.IsDescending ? c => c.OrderByDescending(c => c.UpdatedDate) : c => c.OrderBy(c => c.UpdatedDate),
 					_ => orderBy
                 };
             }
@@ -57,10 +55,6 @@ namespace BackEndApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var product = await _unitOfWork.ProductRepository.GetInfoProduct(id);
             if (product is null)
             {

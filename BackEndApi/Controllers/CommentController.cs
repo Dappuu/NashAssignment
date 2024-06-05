@@ -21,10 +21,6 @@ namespace BackEndApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var comments = await _unitOfWork.CommentRepository.GetAll(includeProperties: "User");
             var commentsDto = comments.Select(c => c.ToCommentDto());
             return Ok(commentsDto);
@@ -86,7 +82,6 @@ namespace BackEndApi.Controllers
 			{
 				productModel.Comments = new List<Comment>();
 			}
-			productModel.Comments.Add(commentModel);
 			productModel.Rating = productModel.Comments.Average(p => p.Rating);
 			_unitOfWork.ProductRepository.Update(productModel);
 			try

@@ -20,7 +20,7 @@ namespace CustomerBackEnd.Controllers
         public async Task<IActionResult> Index()
 		{
 			string url = "api/product?";
-			url += $"SortBy={System.Web.HttpUtility.UrlEncode("Rating")}&";
+			url += $"SortBy={System.Web.HttpUtility.UrlEncode("UpdatedDate")}&";
 			url += $"IsDescending={System.Web.HttpUtility.UrlEncode("true")}";
 			HttpResponseMessage response = await _httpClient.GetAsync(url);
 			if (!response.IsSuccessStatusCode)
