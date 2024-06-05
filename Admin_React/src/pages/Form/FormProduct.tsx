@@ -81,9 +81,11 @@ const FormElements = () => {
     if (!isOptionSelected){
       toast.error("Please choose category.");
       }
-    console.log('imgUrl: ', imgUrl);
-    console.log('data: ', data);
     if (productFromState === null) {
+      if (!imgUrl) {
+        toast.error("Please upload your image");
+        return;
+      }
       const productSkuData: CreateProductRequest = {
         name: data.name,
         productSkuName: data.productSkuName,
@@ -102,7 +104,8 @@ const FormElements = () => {
       } catch (error) {
         console.error(error);
       }
-    } else
+    } 
+    else
     {
       const productSkuData: UpdateProductRequest = {
         name: data.name,
@@ -277,7 +280,6 @@ const FormElements = () => {
                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? 'text-primary dark:text-white' : ''
                       }`}
                   >
-                    {errors.parentCategoryId && <span className='text-red-500 p-3'>{errors.parentCategoryId.message}</span>}
                     {categories &&
                       categories.map((category) => (
                         <option value={category.id} key={category.id} className='text-body dark:text-bodydark'>
@@ -285,6 +287,7 @@ const FormElements = () => {
                         </option>
                       ))}
                   </select>
+                  {errors.parentCategoryId && <span className='text-red-500 p-3'>{errors.parentCategoryId.message}</span>}
                   <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                     <svg
                       className="fill-current"
@@ -323,13 +326,13 @@ const FormElements = () => {
                               })}
 
                             >
-                              {errors.categoryId && <span className='text-red-500 p-3'>{errors.categoryId.message}</span>}
                               {category.subCategoriesDto.map((subcategory: CategoryDto) => (
                                 <option value={subcategory.id} key={subcategory.id} className='text-body dark:text-bodydark'>
                                   {subcategory.name}
                                 </option>
                               ))}
                             </select>
+                            {errors.categoryId && <span className='text-red-500 p-3'>{errors.categoryId.message}</span>}
                             <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
                               <svg
                                 className="fill-current"
