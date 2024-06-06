@@ -28,10 +28,6 @@ namespace BackEndApi.Controllers
 		[HttpGet("product/{productId:int}")]
 		public async Task<IActionResult> GetByProductId([FromRoute] int productId)
         {
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
 			var comments = await _unitOfWork.CommentRepository.GetAll(includeProperties: "User", filter: c => c.ProductId == productId);
 			var commentsDto = comments.Select(c => c.ToCommentDto());
 			return Ok(commentsDto);
@@ -40,10 +36,6 @@ namespace BackEndApi.Controllers
 		[HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var comment = await _unitOfWork.CommentRepository.GetByIdAsync(id);
             if (comment is null)
             {

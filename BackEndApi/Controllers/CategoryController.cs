@@ -21,10 +21,6 @@ namespace BackEndApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var categories = await _unitOfWork.CategoryRepository.GetAll(includeProperties: "SubCategories");
 			var categoriesProductDto = categories.Where(c => c.ParentId is null).Select(c => c.ToCategoryDto());
 			return Ok(categoriesProductDto);
@@ -45,7 +41,11 @@ namespace BackEndApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateRequestCategoryDto categoryDto)
         {
-            var categoryModel = categoryDto.ToCategoryFromCreateDto();
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			var categoryModel = categoryDto.ToCategoryFromCreateDto();
             var categories = await _unitOfWork.CategoryRepository.GetAll();
             var existed = categories.Any(c => c.Name.ToLower() == categoryModel.Name.ToLower());
             if (existed)
