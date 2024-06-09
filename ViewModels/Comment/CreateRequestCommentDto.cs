@@ -11,7 +11,7 @@ namespace ViewModels.Comment
     public class CreateRequestCommentDto
     {
         [Required]
-        public required string Content { get; set; }
+        public string Content { get; set; } = string.Empty;
         [Required]
         [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public decimal Rating { get; set; }

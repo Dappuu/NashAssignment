@@ -17,16 +17,13 @@ namespace ApiTest.Controllers
 {
 	public class CategoryControllerTests : SetUpTest
 	{
-		public CategoryControllerTests()
-		{
-			//_mockUnitOfWork.Setup(uow => uow.CategoryRepository).Returns(_mockCategoryRepo.Object);
-		}
 		[Fact]
 		public async Task GetAll_ReturnsOkResultWithCategories()
 		{
 			// Arange 
-			var categories = _fixture.Build<List<Category>>()
-				.Create();
+			var categories = _fixture.Build<Category>()
+			.CreateMany()
+			.ToList();
 			categories.ForEach(c => c.ParentId = null);
 			categories.ForEach(c => c.Parent = null);
 			_mockUnitOfWork.Setup(uow => uow.CategoryRepository.GetAll(null, null, "SubCategories"))
@@ -85,8 +82,9 @@ namespace ApiTest.Controllers
 				.Create();
 
 			var categoryModel = categoryRequestDto.ToCategoryFromCreateDto();
-			var categories = _fixture.Build<List<Category>>()
-				.Create();
+			var categories = _fixture.Build<Category>()
+				.CreateMany()
+				.ToList();
 
 			_mockUnitOfWork.Setup(uow => uow.CategoryRepository.GetAll(null, null, string.Empty))
 				.ReturnsAsync(categories);
@@ -97,8 +95,6 @@ namespace ApiTest.Controllers
 			_mockUnitOfWork.Setup(uow => uow.Save())
 				.Verifiable();
 
-			var categoryDto = categoryModel.ToCategoryDto();
-
 			// Act
 			var result = await _categoryController.Post(categoryRequestDto);
 
@@ -106,7 +102,7 @@ namespace ApiTest.Controllers
 			var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
 			Assert.Equal(nameof(CategoryController.GetById), createdAtActionResult.ActionName);
 			Assert.Equal(categoryModel.Id, createdAtActionResult.RouteValues!["id"]);
-			Assert.Equal(categoryDto.Id, (createdAtActionResult.Value as CategoryDto)!.Id);
+			Assert.Equal(categoryModel.Id, (createdAtActionResult.Value as CategoryDto)!.Id);
 
 			_mockUnitOfWork.Verify(uow => uow.CategoryRepository.Insert(It.IsAny<Category>()), Times.Once);
 			_mockUnitOfWork.Verify(uow => uow.Save(), Times.Once);

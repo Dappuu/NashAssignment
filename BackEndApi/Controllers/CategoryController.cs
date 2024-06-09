@@ -47,7 +47,7 @@ namespace BackEndApi.Controllers
 			}
 			var categoryModel = categoryDto.ToCategoryFromCreateDto();
             var categories = await _unitOfWork.CategoryRepository.GetAll();
-            var existed = categories.Any(c => c.Name.ToLower() == categoryModel.Name.ToLower());
+			bool existed = categories.Exists(c => c.Name.Equals(categoryModel.Name, StringComparison.OrdinalIgnoreCase));
             if (existed)
             {
                 return BadRequest("Category Already Exist.");

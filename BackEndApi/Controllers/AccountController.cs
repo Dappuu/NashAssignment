@@ -27,7 +27,7 @@ namespace BackEndApi.Controllers
 		public async Task<IActionResult> GetAllUsers()
 		{
             var users = await _userManager.Users.ToListAsync();
-			var usersDto = users.Select(u => u.ToUserDto());
+			var usersDto = users.Select(u => u.ToUserDto()).ToList();
 			return Ok(usersDto);
         }
 		[HttpPost("login")]

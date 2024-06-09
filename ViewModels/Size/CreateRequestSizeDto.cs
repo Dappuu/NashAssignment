@@ -10,6 +10,6 @@ namespace ViewModels.Size
     public class CreateRequestSizeDto
     {
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

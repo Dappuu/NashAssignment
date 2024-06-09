@@ -6,7 +6,7 @@ namespace BackEndApi.Models
 	public class Comment
 	{
 		public int Id { get; set; }
-		public required string Content { get; set; } 
+		public string Content { get; set; } = string.Empty;
 		[Column(TypeName = ("Decimal(3, 2)"))]
         [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public decimal Rating { get; set; }

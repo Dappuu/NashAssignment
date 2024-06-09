@@ -22,14 +22,14 @@ namespace BackEndApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var comments = await _unitOfWork.CommentRepository.GetAll(includeProperties: "User");
-            var commentsDto = comments.Select(c => c.ToCommentDto());
+            var commentsDto = comments.Select(c => c.ToCommentDto()).ToList();
             return Ok(commentsDto);
         }
 		[HttpGet("product/{productId:int}")]
 		public async Task<IActionResult> GetByProductId([FromRoute] int productId)
         {
 			var comments = await _unitOfWork.CommentRepository.GetAll(includeProperties: "User", filter: c => c.ProductId == productId);
-			var commentsDto = comments.Select(c => c.ToCommentDto());
+			var commentsDto = comments.Select(c => c.ToCommentDto()).ToList();
 			return Ok(commentsDto);
 		}
 		// GET api/comment/5
@@ -73,8 +73,12 @@ namespace BackEndApi.Controllers
 			if (productModel.Comments == null)
 			{
 				productModel.Comments = new List<Comment>();
+                productModel.Rating = commentModel.Rating;
 			}
-			productModel.Rating = productModel.Comments.Average(p => p.Rating);
+            else
+            {
+			    productModel.Rating = productModel.Comments.Average(p => p.Rating);
+            }
 			_unitOfWork.ProductRepository.Update(productModel);
 			try
 			{

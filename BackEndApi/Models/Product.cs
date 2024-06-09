@@ -6,9 +6,9 @@ namespace BackEndApi.Models
 	public class Product
 	{
 		public int Id { get; set; }
-		public required string Name { get; set; } 
-		public required string ProductSkuName { get; set; } 
-		public required string Material { get; set; }
+		public string Name { get; set; } = string.Empty;
+		public string ProductSkuName { get; set; } = string.Empty;
+		public string Material { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
         [Column(TypeName = ("Decimal(3, 2)"))]
         [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]

@@ -48,7 +48,7 @@ namespace BackEndApi.Controllers
                 };
             }
             var products = await _unitOfWork.ProductRepository.GetAll(filter, orderBy, includeProperties: "Category");
-            var productDto = products.Select(c => c.ToProductDto());
+            var productDto = products.Select(c => c.ToProductDto()).ToList();
             return Ok(productDto);
         }
         // GET api/product/5

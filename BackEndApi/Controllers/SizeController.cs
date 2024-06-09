@@ -23,7 +23,7 @@ namespace BackEndApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var sizes = await _unitOfWork.SizeRepository.GetAll();
-            var sizesDto = sizes.Select(s => s.ToSizeDto());
+            var sizesDto = sizes.Select(s => s.ToSizeDto()).ToList();
             return Ok(sizesDto);
         }
         // GET: api/size/4
@@ -47,7 +47,7 @@ namespace BackEndApi.Controllers
             }
             var sizeModel = sizeDto.ToSizeFromCreateDto();
             var sizes = await _unitOfWork.SizeRepository.GetAll();
-            var existed = sizes.Any(c => c.Name.ToLower() == sizeModel.Name.ToLower());
+			bool existed = sizes.Exists(c => c.Name.Equals(sizeModel.Name, StringComparison.OrdinalIgnoreCase));
             if (existed)
             {
                 return BadRequest("Size Already Exists.");
@@ -65,7 +65,6 @@ namespace BackEndApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var sizes = await _unitOfWork.SizeRepository.GetAll();
             var size = await _unitOfWork.SizeRepository.GetByID(id);
             if (size == null)
             {
