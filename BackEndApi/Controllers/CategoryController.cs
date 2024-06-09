@@ -22,7 +22,7 @@ namespace BackEndApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categories = await _unitOfWork.CategoryRepository.GetAll(includeProperties: "SubCategories");
-			var categoriesProductDto = categories.Where(c => c.ParentId is null).Select(c => c.ToCategoryDto());
+			var categoriesProductDto = categories.Where(c => c.ParentId is null).Select(c => c.ToCategoryDto()).ToList();
 			return Ok(categoriesProductDto);
         }
         // GET api/category/5
